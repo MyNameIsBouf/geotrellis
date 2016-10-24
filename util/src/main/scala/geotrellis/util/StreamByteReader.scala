@@ -28,10 +28,15 @@ class StreamByteReader(bytesStreamer: BytesStreamer) extends ByteReader {
   def position: Long = offset + chunkBuffer.position.toInt
 
   def position(newPoint: Int): Buffer = {
+    println(s"the newPoint is: $newPoint")
     if (isContained(newPoint)) {
+      println("it was contained within the chunk")
+      println(newPoint - offset)
       chunkBuffer.position(newPoint - offset.toInt)
     } else {
+      println("Need to create a new chunkBuffer")
       adjustChunk(newPoint)
+      println(chunkBuffer)
       chunkBuffer.position(0)
     }
   }
