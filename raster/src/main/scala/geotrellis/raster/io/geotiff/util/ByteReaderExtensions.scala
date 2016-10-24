@@ -89,10 +89,8 @@ trait ByteBufferExtensions {
         cfor(0)(_ < length, _ + 1) { i =>
           arr(i) = us2i(byteReader.getShort)
         }
-
         byteReader.position(oldPos)
       }
-
       arr
     }
 
@@ -114,6 +112,21 @@ trait ByteBufferExtensions {
         byteReader.position(oldPos)
       }
 
+      arr
+    }
+    
+    final def getLongArray(length: Int, valueOffset: Int): Array[Long] = {
+      val arr = Array.ofDim[Long](length)
+
+      val oldPos = byteReader.position
+
+      byteReader.position(valueOffset)
+
+      cfor(0)(_ < length, _ + 1) { i =>
+        arr(i) = byteReader.getLong
+      }
+
+      byteReader.position(oldPos)
       arr
     }
 
