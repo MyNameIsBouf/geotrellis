@@ -1,6 +1,7 @@
 package geotrellis.util
 
 import java.io._
+import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.channels.FileChannel.MapMode._
 
@@ -12,18 +13,25 @@ class LocalBytesStreamer(path: String, val chunkSize: Int) extends BytesStreamer
   def objectLength: Long = channel.size
 
   def getArray(start: Long, length: Long): Array[Byte] = {
+    println("I need to access the stream")
     val chunk: Long =
       if (!passedLength(length + start))
-        length + start
+        length
       else
-        objectLength
+        objectLength - start
 
-    try {
-      val byteBuffer = channel.map(READ_WRITE, start, chunk)
-      byteBuffer.array
-    } finally {
-      channel.close()
-      inputStream.close()
+    println(start, length, chunk)
+
+    val buffer = channel.map(READ_ONLY, start, chunk)
+    var i = 0
+    val data = Array.ofDim[Byte](buffer.capacity)
+    while(buffer.hasRemaining()) {
+      val n = math.min(buffer.remaining(), (1<<18))
+      buffer.get(data, i, n)
+      i += n
     }
+    //channel.close()
+    //inputStream.close()
+    data
   }
 }
