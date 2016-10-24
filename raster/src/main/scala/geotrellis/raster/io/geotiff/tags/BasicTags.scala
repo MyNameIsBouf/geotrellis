@@ -13,7 +13,7 @@ case class BasicTags(
   resolutionUnit: Option[Int] = None,
   rowsPerStrip: Long = 1,
   samplesPerPixel: Int = 1,
-  stripByteCounts: Option[Array[Int]] = None,
+  stripByteCounts: Option[Array[Long]] = None,
   stripOffsets: Option[Array[Long]] = None,
   xResolution: Option[(Long, Long)] = None,
   yResolution: Option[(Long, Long)] = None
