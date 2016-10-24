@@ -15,4 +15,6 @@ object TiffFieldType {
   val FloatsFieldType = 11
   val DoublesFieldType = 12
   val LongsFieldType = 16
+  val UnsignedLongsFieldType = 17
+  val IFDOffset = 18
 }
