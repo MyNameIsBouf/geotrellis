@@ -1,17 +1,24 @@
-package geotrellis.spark.io.s3.util
+package geotrellis.util
+
+import geotrellis.raster._
+import geotrellis.raster.testkit._
 
 import java.nio.file.{ Paths, Files }
 
 import org.scalatest._
 
-class LocalBytesStreamerSpec extends FunSpec with Matchers {
+    /*
+class LocalBytesStreamerSpec extends FunSpec
+  with Matchers
+  with GeoTiffTestUtils {
+
 
   describe("Streaming bytes locally") {
-    val testGeoTiffPath = ???
-    val geoTiffBytes = Files.readAllBytes(Paths.get(testGeoTiffPath))
-    val local = 
-
+    val path = geoTiffPath("bigtiffs/aspect_byte_uncompressed_tiled_bigtiff.tif")
+    val geoTiffBytes = Files.readAllBytes(Paths.get(path))
     val chunkSize = 20000
+    val local = new MockLocalArrayBytes(geotTiffBytes, chunkSize) 
+
 
     def testArrays[T](arr1: Array[T], arr2: Array[T]): Array[(T, T)] = {
       val zipped = arr1.zip(arr2)
@@ -83,3 +90,4 @@ class LocalBytesStreamerSpec extends FunSpec with Matchers {
     }
   }
 }
+  */
