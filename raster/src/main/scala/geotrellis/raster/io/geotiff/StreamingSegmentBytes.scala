@@ -34,7 +34,7 @@ class StreamingSegmentBytes(byteReader: StreamingByteReader,
 			val endCol: Int = startCol + segmentTransform.segmentCols
 			val endRow: Int = startRow + segmentTransform.segmentRows
 			
-			val startResult = (startCol < colMax && startRow < rowMax)
+			val startResult = (startCol <= colMax && startRow <= rowMax)
 			val endResult = (endCol > colMin && endRow > rowMin)
 
 			(startResult && endResult)
