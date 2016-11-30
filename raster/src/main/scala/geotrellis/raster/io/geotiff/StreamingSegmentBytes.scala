@@ -5,6 +5,7 @@ import geotrellis.raster._
 import geotrellis.raster.io.geotiff.tags._
 import geotrellis.vector.Extent
 
+import spire.syntax.cfor._
 import monocle.syntax.apply._
 
 import scala.math.Ordering.Implicits._
@@ -32,7 +33,12 @@ class StreamingSegmentBytes(byteReader: StreamingByteReader,
 			val startRow: Int = segmentTransform.indexToRow(0)
 			val endCol: Int = startCol + segmentTransform.segmentCols
 			val endRow: Int = startRow + segmentTransform.segmentRows
-			((startCol, startRow) >= (colMin, rowMin) || (endCol, endRow) <= (colMax, rowMax))
+			
+			val startResult = (startCol < colMax && startRow < rowMax)
+			val endResult = (endCol > colMin && endRow > rowMin)
+
+			(startResult && endResult)
+
 		}).toArray
 	}
 }
