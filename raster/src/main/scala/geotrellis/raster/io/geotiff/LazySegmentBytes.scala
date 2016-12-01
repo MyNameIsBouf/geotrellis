@@ -62,6 +62,8 @@ case class LazySegmentBytes(byteReader: ByteReader, tiffTags: TiffTags) extends 
 
   override val size = offsets.size
 
+	def intersectingSegments: Array[Int] = (0 until size).toArray
+
   /**
    * Returns an Array[Byte] that represents a [[GeoTiffSegment]]
    * via its index number.
