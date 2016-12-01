@@ -59,7 +59,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 				val rowsPerStrip = tiffTags.basicTags.rowsPerStrip.toInt
 
 				val colMin = tiffTags.cols / 6
-				val rowMin = rowsPerStrip / 2
+				val rowMin = 0
 				val colMax = tiffTags.cols / 2
 				val rowMax = rowsPerStrip * 10 + rowMin
 

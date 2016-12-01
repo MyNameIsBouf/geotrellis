@@ -71,48 +71,41 @@ class UByteGeoTiffTile(
     val arr = Array.ofDim[Byte](gridBounds.size)
     var counter = 0
 
-		val startingSegment =
-			segmentLayout.getSegmentIndex(gridBounds.colMin, gridBounds.rowMin)
-		val endingSegment =
-			segmentLayout.getSegmentIndex(gridBounds.colMax, gridBounds.rowMax)
-    
+		val segments = segmentBytes.intersectingSegments
+
 		if (segmentLayout.isStriped) {
-      cfor(startingSegment)(_ <= endingSegment, _ + 1) { i =>
-        val segmentGridBounds = segmentLayout.getGridBounds(i)
-        if (gridBounds.intersects(segmentGridBounds)) {
-          val segment = getSegment(i)
+      cfor(0)(_ < segments.length, _ + 1) { i =>
+				val segmentId = segments(i)
+				val segment = getSegment(segmentId)
 
-          val result = gridBounds.intersection(segmentGridBounds).get
-          val intersection = Intersection(segmentGridBounds,result, segmentLayout)
+				val result = gridBounds.intersection(segmentGridBounds).get
+				val intersection = Intersection(segmentGridBounds,result, segmentLayout)
 
-					val startingVal = start(i, gridBounds)
-					val endingVal = end(i, gridBounds)
+				val startingVal = start(segmentId, gridBounds)
+				val endingVal = end(segmentId, gridBounds)
 
-          cfor(startingVal)(_ < intersection.end, _ + cols) { i =>
-            System.arraycopy(segment.bytes, i, arr, counter, result.width)
-            counter += result.width
-          }
-        }
+				cfor(startingVal)(_ < intersection.end, _ + cols) { i =>
+					System.arraycopy(segment.bytes, i, arr, counter, result.width)
+					counter += result.width
+				}
       }
     } else {
-      cfor(startingSegment)(_ <= endingSegment, _ + 1) {i =>
-        val segmentGridBounds = segmentLayout.getGridBounds(i)
-        if (gridBounds.intersects(segmentGridBounds)) {
-          val segment = getSegment(i)
-          val segmentTransform = segmentLayout.getSegmentTransform(i)
-          val tileWidth = segmentLayout.tileLayout.tileCols
+      cfor(0)(_ < segments.length, _ + 1) { i =>
+				val segmentId = segments(i)
+				val segment = getSegment(segmentId)
+				val segmentTransform = segmentLayout.getSegmentTransform(segmentId)
+				val tileWidth = segmentLayout.tileLayout.tileCols
 
-					val startingVal = start(i, gridBounds)
-					val endingVal = end(i, gridBounds)
-					val width = bounds(i, gridBounds)
+				val startingVal = start(segmentId, gridBounds)
+				val endingVal = end(segmentId, gridBounds)
+				val width = bounds(segmentId, gridBounds)
 
-          cfor(startingVal)(_ <= endingVal, _ + tileWidth) { i =>
-            val col = segmentTransform.indexToCol(i)
-            val row = segmentTransform.indexToRow(i)
-						val j = (row - gridBounds.rowMin) * gridBounds.width + (col - gridBounds.colMin)
-						System.arraycopy(segment.bytes, i, arr, j, width + 1)
-          }
-        }
+				cfor(startingVal)(_ <= endingVal, _ + tileWidth) { i =>
+					val col = segmentTransform.indexToCol(i)
+					val row = segmentTransform.indexToRow(i)
+					val j = (row - gridBounds.rowMin) * gridBounds.width + (col - gridBounds.colMin)
+					System.arraycopy(segment.bytes, i, arr, j, width + 1)
+				}
       }
     }
     UByteArrayTile.fromBytes(arr, gridBounds.width, gridBounds.height, cellType)
