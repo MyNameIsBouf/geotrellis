@@ -78,15 +78,13 @@ class UByteGeoTiffTile(
 				val segmentId = segments(i)
 				val segment = getSegment(segmentId)
 
-				val result = gridBounds.intersection(segmentGridBounds).get
-				val intersection = Intersection(segmentGridBounds,result, segmentLayout)
-
 				val startingVal = start(segmentId, gridBounds)
 				val endingVal = end(segmentId, gridBounds)
+				val width = bounds(segmentId, gridBounds)
 
-				cfor(startingVal)(_ < intersection.end, _ + cols) { i =>
-					System.arraycopy(segment.bytes, i, arr, counter, result.width)
-					counter += result.width
+				cfor(startingVal)(_ <= endingVal, _ + cols) { i =>
+					System.arraycopy(segment.bytes, i, arr, counter, width + 1)
+					counter += width + 1
 				}
       }
     } else {
