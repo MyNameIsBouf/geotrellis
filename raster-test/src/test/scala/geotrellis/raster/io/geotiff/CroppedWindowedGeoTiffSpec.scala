@@ -36,7 +36,7 @@ object Reader {
     (expected, actual)
   }
   def multiBand(path: String, extent: Extent): (Raster[MultibandTile], Raster[MultibandTile]) = {
-    val expected = MultibandGeoTiff(path, extent).raster
+    val expected = MultibandGeoTiff.streaming(path).crop(extent).raster
     val actual = MultibandGeoTiff(path).raster.crop(extent)
     (expected, actual)
   }
@@ -70,6 +70,7 @@ class CroppedGeoTiffSpec extends FunSpec
 
     describe("reading striped geotiffs around the edges") {
       val extent = Extent(0, -7.3, 27.55, -4)
+
       it("bit") {
         val (expected, actual) = Reader.singleBand(bitStriped, extent)
         assertEqual(actual, expected)
@@ -341,7 +342,8 @@ class CroppedGeoTiffSpec extends FunSpec
     }
 
     describe("reading tiled geoTiffs in the middle") {
-      val extent = Extent(4, 5, 7, 15)
+      //val extent = Extent(4, 5, 7, 15)
+      val extent = Extent(0, 5, 15, 15)
       it("bit") {
         val (expected, actual) = Reader.multiBand(bitTiled, extent)
         assertEqual(actual, expected)
