@@ -49,7 +49,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 
 			it("Should return all of the segments if the whole file is selected") {
 				val streaming =
-					new StreamingSegmentBytes(reader, segmentLayout, tiffTags.extent, tiffTags)
+					new StreamingSegmentBytes(reader, segmentLayout, None, tiffTags)
 
 				streaming.intersectingSegments.length should be (tiffTags.segmentCount)
 				streaming.remainingSegments.length should be (0)
@@ -69,7 +69,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 				val extent = rasterExtent.rasterExtentFor(gridBounds).extent
 
 				val streaming =
-					new StreamingSegmentBytes(reader, segmentLayout, extent, tiffTags)
+					new StreamingSegmentBytes(reader, segmentLayout, Some(extent), tiffTags)
 
 				val actual: Array[Int] = {
 					val coords = gridBounds.coords
@@ -101,7 +101,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 				val extent = rasterExtent.rasterExtentFor(gridBounds).extent
 
 				val streaming =
-					new StreamingSegmentBytes(reader, segmentLayout, extent, tiffTags)
+					new StreamingSegmentBytes(reader, segmentLayout, Some(extent), tiffTags)
 				
 				val actual: Array[Int] = {
 					val coords = gridBounds.coords
@@ -154,7 +154,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 
 			it("Should return all of the segments if the whole file is selected") {
 				val streaming =
-					new StreamingSegmentBytes(reader, segmentLayout, tiffTags.extent, tiffTags)
+					new StreamingSegmentBytes(reader, segmentLayout, None, tiffTags)
 
 				streaming.intersectingSegments.length should be (tiffTags.segmentCount)
 				streaming.remainingSegments.length should be (0)
@@ -175,7 +175,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 				val extent = rasterExtent.rasterExtentFor(gridBounds).extent
 
 				val streaming =
-					new StreamingSegmentBytes(reader, segmentLayout, extent, tiffTags)
+					new StreamingSegmentBytes(reader, segmentLayout, Some(extent), tiffTags)
 
 				val actual: Array[Int] = {
 					val coords = gridBounds.coords
@@ -208,7 +208,7 @@ class StreamingSegmentBytesSpec extends FunSpec
 				val extent = rasterExtent.rasterExtentFor(gridBounds).extent
 
 				val streaming =
-					new StreamingSegmentBytes(reader, segmentLayout, extent, tiffTags)
+					new StreamingSegmentBytes(reader, segmentLayout, Some(extent), tiffTags)
 				
 				val actual: Array[Int] = {
 					val coords = gridBounds.coords
