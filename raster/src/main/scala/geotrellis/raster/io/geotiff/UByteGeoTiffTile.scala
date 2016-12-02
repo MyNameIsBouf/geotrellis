@@ -70,39 +70,46 @@ class UByteGeoTiffTile(
   def crop(gridBounds: GridBounds): MutableArrayTile = {
     val arr = Array.ofDim[Byte](gridBounds.size)
     var counter = 0
+		var c = 0
 
 		val segments = segmentBytes.intersectingSegments
 
 		if (segmentLayout.isStriped) {
       cfor(0)(_ < segments.length, _ + 1) { i =>
 				val segmentId = segments(i)
+        val segmentGridBounds = segmentLayout.getGridBounds(segmentId)
 				val segment = getSegment(segmentId)
+				
+				val result =
+					gridBounds.intersection(segmentGridBounds).get
+				val intersection =
+					Intersection(segmentGridBounds, result, segmentLayout)
 
-				val startingVal = start(segmentId, gridBounds)
-				val endingVal = end(segmentId, gridBounds)
-				val width = bounds(segmentId, gridBounds)
-
-				cfor(startingVal)(_ <= endingVal, _ + cols) { i =>
-					System.arraycopy(segment.bytes, i, arr, counter, width + 1)
-					counter += width + 1
+				cfor(intersection.start)(_ < intersection.end, _ + cols) { i =>
+					System.arraycopy(segment.bytes, i, arr, counter, result.width)
+					counter += result.width
 				}
       }
     } else {
       cfor(0)(_ < segments.length, _ + 1) { i =>
 				val segmentId = segments(i)
+        val segmentGridBounds = segmentLayout.getGridBounds(segmentId)
 				val segment = getSegment(segmentId)
+
 				val segmentTransform = segmentLayout.getSegmentTransform(segmentId)
 				val tileWidth = segmentLayout.tileLayout.tileCols
 
-				val startingVal = start(segmentId, gridBounds)
-				val endingVal = end(segmentId, gridBounds)
-				val width = bounds(segmentId, gridBounds)
+				val result =
+					gridBounds.intersection(segmentGridBounds).get
 
-				cfor(startingVal)(_ <= endingVal, _ + tileWidth) { i =>
+				val intersection =
+					Intersection(segmentGridBounds, result, segmentLayout)
+
+				cfor(intersection.start)(_ < intersection.end, _ + tileWidth) { i =>
 					val col = segmentTransform.indexToCol(i)
 					val row = segmentTransform.indexToRow(i)
 					val j = (row - gridBounds.rowMin) * gridBounds.width + (col - gridBounds.colMin)
-					System.arraycopy(segment.bytes, i, arr, j, width + 1)
+					System.arraycopy(segment.bytes, i, arr, j, result.width)
 				}
       }
     }
