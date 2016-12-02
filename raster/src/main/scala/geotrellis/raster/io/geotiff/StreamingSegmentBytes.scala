@@ -20,18 +20,18 @@ class StreamingSegmentBytes(byteReader: ByteReader,
 			case None => tiffTags.extent
 		}
 
-	private lazy val gridBounds: GridBounds = {
+	private val gridBounds: GridBounds = {
 		val rasterExtent: RasterExtent =
 			RasterExtent(tiffTags.extent, tiffTags.cols, tiffTags.rows)
 		rasterExtent.gridBoundsFor(extent)
 	}
 	
-	private lazy val colMin: Int = gridBounds.colMin
-	private lazy val rowMin: Int = gridBounds.rowMin
-	private lazy val colMax: Int = gridBounds.colMax
-	private lazy val rowMax: Int = gridBounds.rowMax
+	private val colMin: Int = gridBounds.colMin
+	private val rowMin: Int = gridBounds.rowMin
+	private val colMax: Int = gridBounds.colMax
+	private val rowMax: Int = gridBounds.rowMax
 
-	val segments: Array[Int] = 0 until tiffTags.segmentCount toArray
+	val segments: Array[Int] = (0 until tiffTags.segmentCount).toArray
 
 	val intersectingSegments: Array[Int] =
 		if (extent != tiffTags.extent)
@@ -42,13 +42,16 @@ class StreamingSegmentBytes(byteReader: ByteReader,
 				val startRow: Int = segmentTransform.indexToRow(0)
 				val endCol: Int = startCol + segmentTransform.segmentCols
 				val endRow: Int = startRow + segmentTransform.segmentRows
-				
-				val startResult = (startCol <= colMax && startRow <= rowMax)
-				val endResult = (endCol > colMin && endRow > rowMin)
 
-				(startResult && endResult)
+				val start = (!(startCol > colMax) && !(startRow > rowMax))
+				val end = (!(endCol < colMin) && !(endRow < rowMin))
 
-			}).toArray
+				if (start && end)
+					println(endCol, endRow, colMax, rowMax)
+
+				(start && end)
+
+			}).toArray.sorted
 		else
 			segments
 
@@ -80,7 +83,7 @@ class StreamingSegmentBytes(byteReader: ByteReader,
 		}
 	
 	private lazy val compressedBytes: Array[Array[Byte]] = {
-		val result = Array.ofDim[Array[Byte]](offsets.size)
+		val result = Array.ofDim[Array[Byte]](segments.size)
 				
 		cfor(0)(_ < intersectingSegments.size, _ + 1) { i =>
 			val value = intersectingSegments(i)
@@ -96,7 +99,7 @@ class StreamingSegmentBytes(byteReader: ByteReader,
 			compressedBytes(i)
 		else
 			byteReader.getSignedByteArray(byteCounts(i), offsets(i))
-}
+	}
 
 object StreamingSegmentBytes {
 
