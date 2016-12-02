@@ -9,39 +9,48 @@ import geotrellis.vector.Extent
 import spire.syntax.cfor._
 import monocle.syntax.apply._
 
-class StreamingSegmentBytes(byteReader: StreamingByteReader,
+class StreamingSegmentBytes(byteReader: ByteReader,
 	segmentLayout: GeoTiffSegmentLayout,
-	extent: Extent,
+	croppedExtent: Option[Extent],
 	tiffTags: TiffTags) extends SegmentBytes {
 
-	val gridBounds: GridBounds = {
+	private val extent: Extent =
+		croppedExtent match {
+			case Some(e) => e
+			case None => tiffTags.extent
+		}
+
+	private lazy val gridBounds: GridBounds = {
 		val rasterExtent: RasterExtent =
 			RasterExtent(tiffTags.extent, tiffTags.cols, tiffTags.rows)
 		rasterExtent.gridBoundsFor(extent)
 	}
 	
-	private val colMin: Int = gridBounds.colMin
-	private val rowMin: Int = gridBounds.rowMin
-	private val colMax: Int = gridBounds.colMax
-	private val rowMax: Int = gridBounds.rowMax
+	private lazy val colMin: Int = gridBounds.colMin
+	private lazy val rowMin: Int = gridBounds.rowMin
+	private lazy val colMax: Int = gridBounds.colMax
+	private lazy val rowMax: Int = gridBounds.rowMax
 
 	val segments: Array[Int] = 0 until tiffTags.segmentCount toArray
 
 	val intersectingSegments: Array[Int] =
-		segments.filter(x => {
-			val segmentTransform = segmentLayout.getSegmentTransform(x)
+		if (extent != tiffTags.extent)
+			segments.filter(x => {
+				val segmentTransform = segmentLayout.getSegmentTransform(x)
 
-			val startCol: Int = segmentTransform.indexToCol(0)
-			val startRow: Int = segmentTransform.indexToRow(0)
-			val endCol: Int = startCol + segmentTransform.segmentCols
-			val endRow: Int = startRow + segmentTransform.segmentRows
-			
-			val startResult = (startCol <= colMax && startRow <= rowMax)
-			val endResult = (endCol > colMin && endRow > rowMin)
+				val startCol: Int = segmentTransform.indexToCol(0)
+				val startRow: Int = segmentTransform.indexToRow(0)
+				val endCol: Int = startCol + segmentTransform.segmentCols
+				val endRow: Int = startRow + segmentTransform.segmentRows
+				
+				val startResult = (startCol <= colMax && startRow <= rowMax)
+				val endResult = (endCol > colMin && endRow > rowMin)
 
-			(startResult && endResult)
+				(startResult && endResult)
 
-		}).toArray
+			}).toArray
+		else
+			segments
 
 	val remainingSegments: Array[Int] =
 		segments.filter(x => !intersectingSegments.contains(x))
@@ -70,7 +79,7 @@ class StreamingSegmentBytes(byteReader: StreamingByteReader,
 			(tileOffsets.get, tileByteCounts.get)
 		}
 	
-	private val compressedBytes: Array[Array[Byte]] = {
+	private lazy val compressedBytes: Array[Array[Byte]] = {
 		val result = Array.ofDim[Array[Byte]](offsets.size)
 				
 		cfor(0)(_ < intersectingSegments.size, _ + 1) { i =>
@@ -87,4 +96,11 @@ class StreamingSegmentBytes(byteReader: StreamingByteReader,
 			compressedBytes(i)
 		else
 			byteReader.getSignedByteArray(byteCounts(i), offsets(i))
+}
+
+object StreamingSegmentBytes {
+
+	def apply(byteReader: ByteReader, segmentLayout: GeoTiffSegmentLayout,
+		extent: Option[Extent], tiffTags: TiffTags): StreamingSegmentBytes =
+			new StreamingSegmentBytes(byteReader, segmentLayout, extent, tiffTags)
 }
