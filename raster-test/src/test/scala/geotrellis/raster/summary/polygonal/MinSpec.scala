@@ -26,26 +26,36 @@ class MinSpec extends FunSpec
                  with Matchers
                  with RasterMatchers
                  with TileBuilders {
-  describe("Min") {
-    it("computes Minimum") {
-      val rs = createRaster(Array.fill(40*40)(1),40,40)
-      val tile = rs.tile
-      val extent = rs.extent
-      val zone = Extent(10,-10,30,10).toPolygon
 
+  describe("Min") {
+    val rs = createRaster(Array.fill(40*40)(1),40,40)
+    val tile = rs.tile
+    val extent = rs.extent
+    val zone = Extent(10,-10,30,10).toPolygon
+
+    val multibandTile = MultibandTile(tile, tile, tile)
+
+    it("computes Minimum for Singleband") {
       val result = tile.polygonalMin(extent, zone)
-      
+
       result should equal (1)
     }
 
-    it("computes Double Minimum") {
-      val rs = createRaster(Array.fill(40*40)(1),40,40)
-      val tile = rs.tile
-      val extent = rs.extent
-      val zone = Extent(10,-10,30,10).toPolygon
+    it("computes Minimum for Multiband") {
+      val result = tile.polygonalMin(extent, zone)
 
-      val result = tile.polygonalMinDouble(extent, zone)
-      
+      result should equal (1)
+    }
+
+    it("computes Double Minimum for Singleband") {
+      val result = multibandTile.polygonalMinDouble(extent, zone)
+
+      result should equal (1.0)
+    }
+
+    it("computes Double Minimum for Multiband") {
+      val result = multibandTile.polygonalMinDouble(extent, zone)
+
       result should equal (1.0)
     }
   }
