@@ -26,56 +26,20 @@ import geotrellis.vector._
   * Trait containing extension methods for doing polygonal summaries
   * on tiles.
   */
-trait PolygonalSummaryMethods extends MethodExtensions[Tile] {
+trait PolygonalSummaryMethods[V <: CellGrid] extends MethodExtensions[V] {
 
   /**
     * Given a Polygon, an Extent, and a summary handler, generate the
     * summary of a polygonal area with respect to the present tile.
     */
-  def polygonalSummary[T](extent: Extent, polygon: Polygon, handler: TilePolygonalSummaryHandler[T]): T = {
-    val results = {
-      if(polygon.contains(extent)) {
-        Seq(handler.handleFullTile(self))
-      } else {
-        polygon.intersection(extent) match {
-          case PolygonResult(intersection) =>
-            Seq(handler.handlePartialTile(Raster(self, extent), intersection))
-          case MultiPolygonResult(mp) =>
-            mp.polygons.map { intersection =>
-              handler.handlePartialTile(Raster(self, extent), intersection)
-            }
-          case _ => Seq()
-        }
-      }
-    }
-
-    handler.combineResults(results)
-  }
+  def polygonalSummary[T](extent: Extent, polygon: Polygon, handler: TilePolygonalSummaryHandler[T]): T
 
   /**
     * Given a MultiPolygon, an Extent, and a summary handler, generate
     * the summary of a polygonal area with respect to the present
     * tile.
     */
-  def polygonalSummary[T](extent: Extent, multiPolygon: MultiPolygon, handler: TilePolygonalSummaryHandler[T]): T = {
-    val results = {
-      if(multiPolygon.contains(extent)) {
-        Seq(handler.handleFullTile(self))
-      } else {
-        multiPolygon.intersection(extent) match {
-          case PolygonResult(intersection) =>
-            Seq(handler.handlePartialTile(Raster(self, extent), intersection))
-          case MultiPolygonResult(mp) =>
-            mp.polygons.map { intersection =>
-              handler.handlePartialTile(Raster(self, extent), intersection)
-            }
-          case _ => Seq()
-        }
-      }
-    }
-
-    handler.combineResults(results)
-  }
+  def polygonalSummary[T](extent: Extent, multiPolygon: MultiPolygon, handler: TilePolygonalSummaryHandler[T]): T
 
   /**
     * Given an extent and a Polygon, compute the histogram of the tile
@@ -202,5 +166,4 @@ trait PolygonalSummaryMethods extends MethodExtensions[Tile] {
     */
   def polygonalSumDouble(extent: Extent, geom: MultiPolygon): Double =
     polygonalSummary(extent, geom, SumDoubleSummary)
-
 }
