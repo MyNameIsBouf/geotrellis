@@ -31,6 +31,7 @@ package object raster
     with merge.Implicits
     with reproject.Implicits
     with split.Implicits
+    with summary.polygonal.Implicits
     with transform.Implicits {
   type CellType = DataType with NoDataHandling
   type SinglebandRaster = Raster[Tile]
@@ -72,7 +73,6 @@ package object raster
       with resample.SinglebandTileResampleMethods
       with sigmoidal.SinglebandSigmoidalMethods
       with split.SinglebandTileSplitMethods
-      with summary.polygonal.SinglebandTilePolygonalSummaryMethods
       with summary.SinglebandTileSummaryMethods
       with vectorize.VectorizeMethods
       with viewshed.ViewshedMethods
@@ -92,7 +92,6 @@ package object raster
       with resample.MultibandTileResampleMethods
       with sigmoidal.MultibandSigmoidalMethods
       with split.MultibandTileSplitMethods
-      with summary.polygonal.MultibandTilePolygonalSummaryMethods
       with summary.MultibandTileSummaryMethods
 
   implicit class withSinglebandRasterMethods(val self: SinglebandRaster) extends MethodExtensions[SinglebandRaster]

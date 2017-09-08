@@ -22,40 +22,28 @@ import geotrellis.util.MethodExtensions
 import geotrellis.vector._
 
 
-object MultibandTilePolygonalSummaryFunctions {
-  def handleFullTile[T](multibandTile: MultibandTile, handler: TilePolygonalSummaryHandler[T]): Seq[T] =
-    multibandTile.bands.map { handler.handleFullTile(_) }
-
-  def handlePartialTile[T](raster: Raster[MultibandTile], polygon: Polygon, handler: TilePolygonalSummaryHandler[T]): Seq[T] = {
-    val Raster(multibandTile, extent) = raster
-    multibandTile.bands.map { tile => handler.handlePartialTile(Raster(tile, extent), polygon) }
-  }
-}
-
-
 /**
   * Trait containing extension methods for doing polygonal summaries
-  * on tiles.
+  * on MultibandTiles.
   */
 trait MultibandTilePolygonalSummaryMethods extends PolygonalSummaryMethods[MultibandTile] {
-  import MultibandTilePolygonalSummaryFunctions._
 
   /**
     * Given a Polygon, an Extent, and a summary handler, generate the
-    * summary of a polygonal area with respect to the present tile.
+    * summary of a polygonal area with respect to the present MultibandTile.
     */
   def polygonalSummary[T](extent: Extent, polygon: Polygon, handler: TilePolygonalSummaryHandler[T]): T = {
     val results: Seq[T] = {
       if(polygon.contains(extent)) {
-        handleFullTile(self, handler)
+        Seq(handler.handleFullTile(self))
       } else {
         polygon.intersection(extent) match {
           case PolygonResult(intersection) =>
-            handlePartialTile(Raster(self, extent), intersection, handler)
+            Seq(handler.handlePartialTile(Raster(self, extent), intersection))
           case MultiPolygonResult(mp) =>
             mp.polygons.map { intersection =>
-              handlePartialTile(Raster(self, extent), intersection, handler)
-            }.reduce { _ ++ _ }
+              handler.handlePartialTile(Raster(self, extent), intersection)
+            }
           case _ => Seq()
         }
       }
@@ -66,25 +54,24 @@ trait MultibandTilePolygonalSummaryMethods extends PolygonalSummaryMethods[Multi
   /**
     * Given a MultiPolygon, an Extent, and a summary handler, generate
     * the summary of a polygonal area with respect to the present
-    * tile.
+    * MultibandRile.
     */
   def polygonalSummary[T](extent: Extent, multiPolygon: MultiPolygon, handler: TilePolygonalSummaryHandler[T]): T = {
     val results = {
       if(multiPolygon.contains(extent)) {
-        handleFullTile(self, handler)
+        Seq(handler.handleFullTile(self))
       } else {
         multiPolygon.intersection(extent) match {
           case PolygonResult(intersection) =>
-            handlePartialTile(Raster(self, extent), intersection, handler)
+            Seq(handler.handlePartialTile(Raster(self, extent), intersection))
           case MultiPolygonResult(mp) =>
             mp.polygons.map { intersection =>
-              handlePartialTile(Raster(self, extent), intersection, handler)
-            }.reduce { _ ++ _ }
+              handler.handlePartialTile(Raster(self, extent), intersection)
+            }
           case _ => Seq()
         }
       }
     }
-
     handler.combineResults(results)
   }
 }
