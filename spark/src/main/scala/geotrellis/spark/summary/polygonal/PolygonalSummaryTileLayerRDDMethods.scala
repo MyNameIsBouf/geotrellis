@@ -22,6 +22,7 @@ import geotrellis.raster._
 import geotrellis.spark._
 import geotrellis.spark.tiling._
 import geotrellis.vector._
+import geotrellis.vector.summary.polygonal._
 import geotrellis.util._
 
 import org.apache.spark.Partitioner
@@ -31,39 +32,22 @@ import scala.reflect.ClassTag
 
 abstract class PolygonalSummaryTileLayerRDDMethods[
   K: ClassTag,
+  V <: CellGrid: ClassTag,
   M: GetComponent[?, LayoutDefinition]
-] extends MethodExtensions[RDD[(K, Tile)] with Metadata[M]] {
-  import Implicits._
+] extends MethodExtensions[RDD[(K, V)] with Metadata[M]] {
   protected implicit val _sc: SpatialComponent[K]
 
   def polygonalSummary[T: ClassTag](
     polygon: Polygon,
     zeroValue: T,
     handler: TilePolygonalSummaryHandler[T]
-  ): T =
-    self
-      .asRasters
-      .map(_._2.asFeature)
-      .polygonalSummary(polygon, zeroValue)(handler)
+  ): T
 
   def polygonalSummary[T: ClassTag](
     multiPolygon: MultiPolygon,
     zeroValue: T,
     handler: TilePolygonalSummaryHandler[T]
-  ): T =
-    self
-      .asRasters
-      .map(_._2.asFeature)
-      .polygonalSummary(multiPolygon, zeroValue)(handler)
-
-  def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
-    polygon: Polygon,
-    zeroValue: T,
-    handler: TilePolygonalSummaryHandler[T],
-    fKey: K => L
-  ): RDD[(L, T)] = {
-    polygonalSummaryByKey(polygon, zeroValue, handler, fKey, None)
-  }
+  ): T
 
   def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
     polygon: Polygon,
@@ -71,20 +55,7 @@ abstract class PolygonalSummaryTileLayerRDDMethods[
     handler: TilePolygonalSummaryHandler[T],
     fKey: K => L,
     partitioner: Option[Partitioner]
-  ): RDD[(L, T)] =
-    self
-      .asRasters
-      .map { case (key, raster) => (fKey(key), raster.asFeature) }
-      .polygonalSummaryByKey(polygon, zeroValue, partitioner)(handler)
-
-  def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
-    multiPolygon: MultiPolygon,
-    zeroValue: T,
-    handler: TilePolygonalSummaryHandler[T],
-    fKey: K => L
-  ): RDD[(L, T)] = {
-    polygonalSummaryByKey(multiPolygon, zeroValue, handler, fKey, None)
-  }
+  ): RDD[(L, T)]
 
   def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
     multiPolygon: MultiPolygon,
@@ -92,11 +63,7 @@ abstract class PolygonalSummaryTileLayerRDDMethods[
     handler: TilePolygonalSummaryHandler[T],
     fKey: K => L,
     partitioner: Option[Partitioner]
-  ): RDD[(L, T)] =
-    self
-      .asRasters
-      .map { case (key, raster) => (fKey(key), raster.asFeature) }
-      .polygonalSummaryByKey(multiPolygon, zeroValue, partitioner)(handler)
+  ): RDD[(L, T)]
 
   def polygonalHistogram(polygon: Polygon): Histogram[Int] =
     polygonalSummary(polygon, FastMapHistogram(), IntHistogramSummary)
@@ -194,4 +161,105 @@ abstract class PolygonalSummaryTileLayerRDDMethods[
     else
       polygonalSummary(multiPolygon, 0.0, SumDoubleSummary)
 
+}
+
+abstract class PolygonalSummarySinglebandTileLayerRDDMethods[
+  K: ClassTag,
+  M: GetComponent[?, LayoutDefinition]
+] extends PolygonalSummaryTileLayerRDDMethods[K, Tile, M] {
+  import Implicits._
+  def polygonalSummary[T: ClassTag](
+    polygon: Polygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T]
+  ): T =
+    self
+      .asRasters
+      .map(_._2.asFeature)
+      .polygonalSummary(polygon, zeroValue)(handler)
+
+  def polygonalSummary[T: ClassTag](
+    multiPolygon: MultiPolygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T]
+  ): T =
+    self
+      .asRasters
+      .map(_._2.asFeature)
+      .polygonalSummary(multiPolygon, zeroValue)(handler)
+
+  def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
+    polygon: Polygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T],
+    fKey: K => L,
+    partitioner: Option[Partitioner]
+  ): RDD[(L, T)] =
+    self
+      .asRasters
+      .map { case (key, raster) => (fKey(key), raster.asFeature) }
+      .polygonalSummaryByKey(polygon, zeroValue, partitioner)(handler)
+
+  def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
+    multiPolygon: MultiPolygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T],
+    fKey: K => L,
+    partitioner: Option[Partitioner]
+  ): RDD[(L, T)] =
+    self
+      .asRasters
+      .map { case (key, raster) => (fKey(key), raster.asFeature) }
+      .polygonalSummaryByKey(multiPolygon, zeroValue, partitioner)(handler)
+}
+
+
+abstract class PolygonalSummaryMultibandTileLayerRDDMethods[
+  K: ClassTag,
+  M: GetComponent[?, LayoutDefinition]
+] extends PolygonalSummaryTileLayerRDDMethods[K, MultibandTile, M] {
+  import Implicits._
+  def polygonalSummary[T: ClassTag](
+    polygon: Polygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T]
+  ): T =
+    self
+      .asRasters
+      .map(_._2.asFeature)
+      .polygonalSummary(polygon, zeroValue)(handler)
+
+  def polygonalSummary[T: ClassTag](
+    multiPolygon: MultiPolygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T]
+  ): T =
+    self
+      .asRasters
+      .map(_._2.asFeature)
+      .polygonalSummary(multiPolygon, zeroValue)(handler)
+
+  def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
+    polygon: Polygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T],
+    fKey: K => L,
+    partitioner: Option[Partitioner]
+  ): RDD[(L, T)] =
+    self
+      .asRasters
+      .map { case (key, raster) => (fKey(key), raster.asFeature) }
+      .polygonalSummaryByKey(polygon, zeroValue, partitioner)(handler)
+
+  def polygonalSummaryByKey[T: ClassTag, L: ClassTag](
+    multiPolygon: MultiPolygon,
+    zeroValue: T,
+    handler: TilePolygonalSummaryHandler[T],
+    fKey: K => L,
+    partitioner: Option[Partitioner]
+  ): RDD[(L, T)] =
+    self
+      .asRasters
+      .map { case (key, raster) => (fKey(key), raster.asFeature) }
+      .polygonalSummaryByKey(multiPolygon, zeroValue, partitioner)(handler)
 }
