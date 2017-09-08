@@ -16,6 +16,7 @@
 
 package geotrellis.spark.summary.polygonal
 
+import geotrellis.raster._
 import geotrellis.spark._
 import geotrellis.spark.io.hadoop._
 import geotrellis.spark.testkit.testfiles._
@@ -30,6 +31,7 @@ class MinSpec extends FunSpec with TestEnvironment with TestFiles {
 
   describe("Min Zonal Summary Operation") {
     val inc = IncreasingTestFile
+    val multi = inc.withContext { _.mapValues { tile => MultibandTile(tile, tile) } }
 
     val tileLayout = inc.metadata.tileLayout
     val count = (inc.count * tileLayout.tileCols * tileLayout.tileRows).toInt
@@ -37,6 +39,10 @@ class MinSpec extends FunSpec with TestEnvironment with TestFiles {
 
     it("should get correct min over whole raster extent") {
       inc.polygonalMin(totalExtent.toPolygon) should be(0)
+    }
+
+    it("should get the correct min over the whole raster extent for a MultibandTileRDD") {
+      multi.polygonalMin(totalExtent.toPolygon) should be(0)
     }
 
     it("should get correct min over a quarter of the extent") {
@@ -52,6 +58,23 @@ class MinSpec extends FunSpec with TestEnvironment with TestFiles {
 
       val result = inc.polygonalMin(quarterExtent.toPolygon)
       val expected = inc.stitch.tile.polygonalMin(totalExtent, quarterExtent.toPolygon)
+
+      result should be (expected)
+    }
+
+    it("should get correct min over a quarter of the extent for a MultibandTileRDD") {
+      val xd = totalExtent.xmax - totalExtent.xmin
+      val yd = totalExtent.ymax - totalExtent.ymin
+
+      val quarterExtent = Extent(
+        totalExtent.xmin,
+        totalExtent.ymin,
+        totalExtent.xmin + xd / 2,
+        totalExtent.ymin + yd / 2
+      )
+
+      val result = multi.polygonalMin(quarterExtent.toPolygon)
+      val expected = multi.stitch.tile.polygonalMin(totalExtent, quarterExtent.toPolygon)
 
       result should be (expected)
     }

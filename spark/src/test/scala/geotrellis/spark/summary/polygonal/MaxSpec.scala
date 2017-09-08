@@ -22,6 +22,7 @@ import geotrellis.spark.testkit.testfiles._
 import geotrellis.raster.summary.polygonal._
 import geotrellis.spark.testkit._
 
+import geotrellis.raster._
 import geotrellis.vector._
 
 import org.scalatest.FunSpec
@@ -30,28 +31,40 @@ class MaxSpec extends FunSpec with TestEnvironment with TestFiles {
 
   describe("Max Zonal Summary Operation") {
     val inc = IncreasingTestFile
+    val multi = inc.withContext { _.mapValues { tile => MultibandTile(tile, tile) } }
 
     val tileLayout = inc.metadata.tileLayout
     val count = (inc.count * tileLayout.tileCols * tileLayout.tileRows).toInt
     val totalExtent = inc.metadata.extent
 
+    val xd = totalExtent.xmax - totalExtent.xmin
+    val yd = totalExtent.ymax - totalExtent.ymin
+
+    val quarterExtent = Extent(
+      totalExtent.xmin,
+      totalExtent.ymin,
+      totalExtent.xmin + xd / 2,
+      totalExtent.ymin + yd / 2
+    )
+
     it("should get correct max over whole raster extent") {
       inc.polygonalMax(totalExtent.toPolygon) should be(count - 1)
     }
 
+    it("should get correct double max over whole raster extent for MultibandTileRDD") {
+      multi.polygonalMax(totalExtent.toPolygon) should be(count - 1)
+    }
+
     it("should get correct max over a quarter of the extent") {
-      val xd = totalExtent.xmax - totalExtent.xmin
-      val yd = totalExtent.ymax - totalExtent.ymin
-
-      val quarterExtent = Extent(
-        totalExtent.xmin,
-        totalExtent.ymin,
-        totalExtent.xmin + xd / 2,
-        totalExtent.ymin + yd / 2
-      )
-
       val result = inc.polygonalMax(quarterExtent.toPolygon)
       val expected = inc.stitch.tile.polygonalMax(totalExtent, quarterExtent.toPolygon)
+
+      result should be (expected)
+    }
+
+    it("should get correct double max over a quarter of the extent for MultibandTileRDD") {
+      val result = multi.polygonalMax(quarterExtent.toPolygon)
+      val expected = multi.stitch.tile.polygonalMax(totalExtent, quarterExtent.toPolygon)
 
       result should be (expected)
     }

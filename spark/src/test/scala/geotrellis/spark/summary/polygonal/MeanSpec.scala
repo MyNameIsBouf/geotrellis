@@ -22,6 +22,7 @@ import geotrellis.spark.testkit.testfiles._
 import geotrellis.raster.summary.polygonal._
 import geotrellis.spark.testkit._
 
+import geotrellis.raster._
 import geotrellis.vector._
 
 import org.scalatest.FunSpec
@@ -30,6 +31,7 @@ class MeanSpec extends FunSpec with TestEnvironment with TestFiles {
 
   describe("Mean Zonal Summary Operation") {
     val inc = IncreasingTestFile
+    val multi = inc.withContext { _.mapValues { tile => MultibandTile(tile, tile) } }
 
     val tileLayout = inc.metadata.tileLayout
     val count = (inc.count * tileLayout.tileCols * tileLayout.tileRows).toInt
@@ -37,6 +39,10 @@ class MeanSpec extends FunSpec with TestEnvironment with TestFiles {
 
     it("should get correct mean over whole raster extent") {
       inc.polygonalMean(totalExtent.toPolygon) should be((count - 1) / 2.0)
+    }
+
+    it("should get correct mean over whole raster extent for a MultibandTileRDD") {
+      multi.polygonalMean(totalExtent.toPolygon) should be((count - 1) / 2.0)
     }
 
     it("should get correct mean over a quarter of the extent") {
@@ -51,6 +57,22 @@ class MeanSpec extends FunSpec with TestEnvironment with TestFiles {
       )
       val result = inc.polygonalMean(quarterExtent.toPolygon)
       val expected = inc.stitch.tile.polygonalMean(totalExtent, quarterExtent.toPolygon)
+
+      result should be (expected)
+    }
+
+    it("should get correct mean over a quarter of the extent for a MultibandTileRDD") {
+      val xd = totalExtent.width
+      val yd = totalExtent.height
+
+      val quarterExtent = Extent(
+        totalExtent.xmin,
+        totalExtent.ymin,
+        totalExtent.xmin + xd / 2,
+        totalExtent.ymin + yd / 2
+      )
+      val result = multi.polygonalMean(quarterExtent.toPolygon)
+      val expected = multi.stitch.tile.polygonalMean(totalExtent, quarterExtent.toPolygon)
 
       result should be (expected)
     }
