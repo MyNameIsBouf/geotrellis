@@ -74,10 +74,10 @@ package object raster
       with resample.SinglebandTileResampleMethods
       with sigmoidal.SinglebandSigmoidalMethods
       with split.SinglebandTileSplitMethods
-      //with summary.polygonal.PolygonalSummaryMethods
       with summary.SinglebandTileSummaryMethods
       with vectorize.VectorizeMethods
       with viewshed.ViewshedMethods
+      with update.SinglebandTileUpdateMethods
 
   implicit class withMultibandTileMethods(val self: MultibandTile) extends MethodExtensions[MultibandTile]
       with DelayedConversionMultibandTileMethods
@@ -95,6 +95,7 @@ package object raster
       with sigmoidal.MultibandSigmoidalMethods
       with split.MultibandTileSplitMethods
       with summary.MultibandTileSummaryMethods
+      with update.MultibandTileUpdateMethods
 
   implicit class withSinglebandRasterMethods(val self: SinglebandRaster) extends MethodExtensions[SinglebandRaster]
       with reproject.SinglebandRasterReprojectMethods
