@@ -21,7 +21,7 @@ import geotrellis.raster._
 import geotrellis.raster.testkit._
 import geotrellis.spark._
 import geotrellis.spark.testkit._
-import geotrellis.spark.tiling.LayoutDefinition
+import geotrellis.spark.tiling._//LayoutDefinition
 import geotrellis.vector.Extent
 import org.scalatest.FunSpec
 
@@ -31,6 +31,46 @@ class RDDStitchMethodsSpec extends FunSpec
     with TestEnvironment {
 
   describe("Stitching spatial rdds") {
+    it("should read in the troubled tiff") {
+      import geotrellis.vector._
+      import geotrellis.raster.io.geotiff._
+      import org.apache.spark.rdd._
+      import geotrellis.spark.io.hadoop._
+      import geotrellis.raster.crop._
+      import geotrellis.raster.io.geotiff.writer._
+      import geotrellis.proj4._
+
+      val targetExtent = Extent(531500.0, 773500.0, 531600.0, 7735200.0)
+
+      val rdd = HadoopGeoTiffRDD.spatialMultiband("/tmp/MBTest.tif")
+      val (_, m) = rdd.collectMetadata[SpatialKey](CRS.fromEpsgCode(3857), FloatingLayoutScheme(256))
+      println(m.crs)
+
+      val sourceExtent = m.extent
+
+      val tiled: RDD[(SpatialKey, MultibandTile)] = rdd.tileToLayout[SpatialKey](m)
+      val tiledLayer = MultibandTileLayerRDD(tiled, m)
+      val cropped = tiledLayer.crop(targetExtent)
+
+      //cropped.foreach { case (k, v) => println(s"$k: ${v.cols} cols, ${v.rows} rows") }
+      //println("\n")
+
+      val tile = MultibandGeoTiff.streaming("/tmp/MBTest.tif")
+      val expected = tile.crop(targetExtent)
+
+      //println(s"\nThis is the EXPECTED Tile's cols: ${expected.cols} and this is the Tile's rows: ${expected.rows}\n")
+
+      val actual = cropped.stitch()
+
+      //GeoTiffWriter.write(expected, "/tmp/good-cropped.tif")
+      GeoTiffWriter.write(MultibandGeoTiff(actual, targetExtent, tiledLayer.metadata.crs), "/tmp/cropped.tif")
+
+      //println(s"\nThis is the ACTUAL Tile's cols: ${actual.cols} and this is the Tile's rows: ${actual.rows}\n")
+
+      //assertEqual(actual.tile, expected.tile)
+    }
+
+
     it("should correctly stitch back together single band tile rdd") {
       val tile =
         createTile(

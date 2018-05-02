@@ -17,7 +17,9 @@
 package geotrellis.spark.stitch
 
 import geotrellis.raster._
+import geotrellis.raster.prototype._
 import geotrellis.raster.stitch._
+import geotrellis.raster.update._
 import geotrellis.vector.Extent
 import geotrellis.spark.tiling._
 import geotrellis.spark._
@@ -28,19 +30,21 @@ import org.apache.spark.rdd.RDD
 object Implicits extends Implicits
 
 trait Implicits {
-  implicit class withSpatialTileLayoutRDDMethods[V <: CellGrid: Stitcher, M: GetComponent[?, LayoutDefinition]](
-    val self: RDD[(SpatialKey, V)] with Metadata[M]
-  ) extends SpatialTileLayoutRDDStitchMethods[V, M]
+  implicit class withSpatialTileLayoutRDDMethods[
+    V <: CellGrid: Stitcher: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V],
+    M: GetComponent[?, LayoutDefinition]
+  ](val self: RDD[(SpatialKey, V)] with Metadata[M]) extends SpatialTileLayoutRDDStitchMethods[V, M]
 
-  implicit class withSpatialTileRDDMethods[V <: CellGrid: Stitcher](
-    val self: RDD[(SpatialKey, V)]
-  ) extends SpatialTileRDDStitchMethods[V]
+  implicit class withSpatialTileRDDMethods[
+    V <: CellGrid: Stitcher: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V]
+  ](val self: RDD[(SpatialKey, V)]) extends SpatialTileRDDStitchMethods[V]
 
-  implicit class withSpatialTileLayoutCollectionMethods[V <: CellGrid: Stitcher, M: GetComponent[?, LayoutDefinition]](
-    val self: Seq[(SpatialKey, V)] with Metadata[M]
-  ) extends SpatialTileLayoutCollectionStitchMethods[V, M]
+  implicit class withSpatialTileLayoutCollectionMethods[
+    V <: CellGrid: Stitcher: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V],
+    M: GetComponent[?, LayoutDefinition]
+  ](val self: Seq[(SpatialKey, V)] with Metadata[M]) extends SpatialTileLayoutCollectionStitchMethods[V, M]
 
-  implicit class withSpatialTileCollectionMethods[V <: CellGrid: Stitcher](
-    val self: Seq[(SpatialKey, V)]
-  ) extends SpatialTileCollectionStitchMethods[V]
+  implicit class withSpatialTileCollectionMethods[
+    V <: CellGrid: Stitcher: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V]
+  ](val self: Seq[(SpatialKey, V)]) extends SpatialTileCollectionStitchMethods[V]
 }

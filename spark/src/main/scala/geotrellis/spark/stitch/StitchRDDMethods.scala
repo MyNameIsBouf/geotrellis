@@ -17,6 +17,8 @@
 package geotrellis.spark.stitch
 
 import geotrellis.raster._
+import geotrellis.raster.prototype._
+import geotrellis.raster.update._
 import geotrellis.raster.stitch.Stitcher
 import geotrellis.vector.Extent
 import geotrellis.spark._
@@ -32,27 +34,52 @@ object TileLayoutStitcher {
    * Makes the assumption that all tiles are of equal size such that they can be placed in a grid layout.
    * @return An option of stitched tile and the GridBounds of keys used to construct it.
    */
-  def stitch[V <: CellGrid](tiles: Iterable[(Product2[Int, Int], V)])
+  def stitch[
+    V <: CellGrid: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V]
+  ](tiles: Iterable[(Product2[Int, Int], V)])
   (implicit stitcher: Stitcher[V]): (V, GridBounds) = {
     require(tiles.nonEmpty, "nonEmpty input")
     val sample = tiles.head._2
     val te = GridBounds.envelope(tiles.map(_._1))
-    val tileCols = sample.cols
-    val tileRows = sample.rows
+
+    val (tileCols, tileRows) =
+      tiles
+        .map { case (_, v) => (v.cols, v.rows) }
+        .reduce { (x, y) =>
+          val c = if (x._1 > y._1) x._1 else y._1
+          val r = if (x._2 > y._2) x._2 else y._2
+
+          (c, r)
+        }
+
+    val protoType = sample.prototype(sample.cellType, tileCols, tileRows)
 
     val pieces =
       for ((SpatialKey(col, row), v) <- tiles) yield {
-        val updateCol = (col - te.colMin) * tileCols
-        val updateRow = (row - te.rowMin) * tileRows
-        (v, (updateCol, updateRow))
+        val updateCol = (col - te.colMin) * v.cols
+        val updateRow = (row - te.rowMin) * v.rows
+
+        if (v.cols != tileCols || v.rows != tileRows) {
+          (protoType.updateFromSource(0, 0, v), (updateCol, updateRow))
+        } else {
+          (v, (updateCol, updateRow))
+        }
       }
+
+    //println(s"This is the sample's cols: ${sample.cols} this is the sample's rows: ${sample.rows}")
+    //println(s"This is the number of cols in the resulting tile: ${te.width * sample.cols}")
+    //println(s"This is the number of rows in the resulting tile: ${te.height * sample.rows}")
+
+    //pieces.foreach { case (x, (y, z)) => println(y, z) }
     val tile: V = stitcher.stitch(pieces, te.width * tileCols, te.height * tileRows)
     (tile, te)
   }
 }
 
-abstract class SpatialTileLayoutRDDStitchMethods[V <: CellGrid: Stitcher, M: GetComponent[?, LayoutDefinition]]
-  extends MethodExtensions[RDD[(SpatialKey, V)] with Metadata[M]] {
+abstract class SpatialTileLayoutRDDStitchMethods[
+  V <: CellGrid: Stitcher: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V],
+  M: GetComponent[?, LayoutDefinition]
+] extends MethodExtensions[RDD[(SpatialKey, V)] with Metadata[M]] {
 
   def stitch(): Raster[V] = {
     val (tile, bounds) = TileLayoutStitcher.stitch(self.collect())
@@ -61,8 +88,9 @@ abstract class SpatialTileLayoutRDDStitchMethods[V <: CellGrid: Stitcher, M: Get
   }
 }
 
-abstract class SpatialTileRDDStitchMethods[V <: CellGrid: Stitcher]
-  extends MethodExtensions[RDD[(SpatialKey, V)]] {
+abstract class SpatialTileRDDStitchMethods[
+  V <: CellGrid: Stitcher: ? => TilePrototypeMethods[V]: ? => TileUpdateMethods[V]
+] extends MethodExtensions[RDD[(SpatialKey, V)]] {
 
   def stitch(): V = {
     TileLayoutStitcher.stitch(self.collect())._1
