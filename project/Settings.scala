@@ -541,4 +541,21 @@ object Settings {
       scalapb
     )
   )
+
+  lazy val `geotrellis-tiling` = Seq(
+    name := "geotrellis-tiling",
+    libraryDependencies ++= Seq(
+      spire,
+      monocleCore,
+      monocleMacro,
+      chronoscala,
+      scalatest % Test
+    ),
+    initialCommands in console :=
+      """
+      import geotrellis.raster._
+      import geotrellis.vector._
+      import geotrellis.proj4._
+      """
+  )
 }

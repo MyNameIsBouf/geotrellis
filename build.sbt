@@ -287,3 +287,8 @@ lazy val bench = project
   .dependsOn(spark)
   .settings(commonSettings)
   .settings(Settings.bench)
+
+lazy val `geotrellis-tiling` = project
+  .dependsOn(raster, vector, proj4, util)
+  .settings(commonSettings)
+  .settings(Settings.`geotrellis-tiling`)
