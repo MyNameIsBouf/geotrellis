@@ -20,6 +20,7 @@ import geotrellis.raster._
 import geotrellis.raster.equalization.HistogramEqualization
 import geotrellis.raster.histogram.Histogram
 import geotrellis.raster.histogram.StreamingHistogram
+import geotrellis.tiling.Metadata
 import geotrellis.spark._
 
 import org.apache.spark.rdd.RDD

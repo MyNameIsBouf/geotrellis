@@ -21,10 +21,11 @@ import geotrellis.raster.io.geotiff._
 import geotrellis.vector._
 import geotrellis.proj4._
 import geotrellis.util._
-import geotrellis.spark.tiling._
+import geotrellis.tiling._
 import geotrellis.spark.ingest._
 import geotrellis.spark.crop._
 import geotrellis.spark.filter._
+import geotrellis.spark.tiling._
 import org.apache.spark.{Partitioner, SparkContext}
 import org.apache.spark.rdd._
 

@@ -24,21 +24,22 @@ import geotrellis.raster.prototype._
 import geotrellis.raster.reproject._
 import geotrellis.raster.resample._
 import geotrellis.raster.stitch._
+import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.buffer._
 import geotrellis.spark.merge._
-import geotrellis.spark.tiling._
 import geotrellis.vector._
 import geotrellis.util._
 
-import com.typesafe.scalalogging.LazyLogging
 import org.apache.spark.rdd._
 import org.apache.spark._
 
 import scala.reflect.ClassTag
 
-object TileRDDReproject extends LazyLogging {
+object TileRDDReproject {
   import Reproject.Options
+
+  @transient private lazy val logger = LazyLogging(this)
 
   /** Reproject a set of buffered
     * @tparam           K           Key type; requires spatial component.
@@ -54,7 +55,7 @@ object TileRDDReproject extends LazyLogging {
     */
   def apply[
     K: SpatialComponent: Boundable: ClassTag,
-    V <: CellGrid[Int]: ClassTag: RasterRegionReproject: (? => TileMergeMethods[V]): (? => TilePrototypeMethods[V])
+    V <: CellGrid: ClassTag: RasterRegionReproject: (? => TileMergeMethods[V]): (? => TilePrototypeMethods[V])
   ](
     bufferedTiles: RDD[(K, BufferedTile[V])],
     metadata: TileLayerMetadata[K],
@@ -97,7 +98,8 @@ object TileRDDReproject extends LazyLogging {
         // to a different GridExtent depending on the settings in
         // rasterReprojectOptions.
         if (options.matchLayerExtent) {
-          val tre = ReprojectRasterExtent(layout, crs, destCrs, options.rasterReprojectOptions)
+          val tre = ReprojectRasterExtent(
+            layout: GridExtent, crs, destCrs, options.rasterReprojectOptions)
 
           layoutScheme.levelFor(tre.extent, tre.cellSize)
         } else {
@@ -143,7 +145,7 @@ object TileRDDReproject extends LazyLogging {
     }
 
     val rasterReprojectOptions = options.rasterReprojectOptions.copy(
-      parentGridExtent = Some(targetLayerLayout),
+      parentGridExtent = Some(targetLayerLayout: GridExtent),
       targetCellSize = None,
       targetRasterExtent = None
     )
@@ -167,8 +169,11 @@ object TileRDDReproject extends LazyLogging {
       bufferedTiles
         .mapPartitions { partition =>
           partition.flatMap { case (key, BufferedTile(tile, gridBounds)) => {
+            println(s"\n\nReading key: $key now")
             val innerExtent = key.getComponent[SpatialKey].extent(layout)
+            println(s"The innerExtent of the key is: $innerExtent")
             val innerRasterExtent = RasterExtent(innerExtent, gridBounds.width, gridBounds.height)
+            println(s"The innRasterExtent of the key is: $innerRasterExtent")
             val outerGridBounds =
               GridBounds(
                 -gridBounds.colMin,
@@ -177,10 +182,14 @@ object TileRDDReproject extends LazyLogging {
                 tile.rows - gridBounds.rowMin - 1
               )
             val outerExtent = innerRasterExtent.extentFor(outerGridBounds, clamp = false)
+            println(s"This is the outerExtent of the key: $outerExtent")
             val destRegion = ProjectedExtent(innerExtent, crs).reprojectAsPolygon(destCrs, 0.05)
+            println(s"This is the destRegion of the key: $destRegion")
 
             maptrans.keysForGeometry(destRegion).map { newKey =>
+              println(s"This is the newKey: $newKey")
               val destRE = RasterExtent(maptrans(newKey), newLayout.tileLayout.tileCols, newLayout.tileLayout.tileRows)
+              println(s"This is the newKey's gridBounds: ${destRE.gridBounds}")
               (key.setComponent[SpatialKey](newKey), (Raster(tile, outerExtent), destRE, destRegion))
             }
           }}
@@ -190,7 +199,7 @@ object TileRDDReproject extends LazyLogging {
         val (raster, destRE, destRegion) = tup
         rrp.regionReproject(raster, crs, destCrs, destRE, destRegion, rasterReprojectOptions.method, rasterReprojectOptions.errorThreshold).tile
       }
-
+    
     def mergeValues(reprojectedTile: V, toReproject: (Raster[V], RasterExtent, Polygon)) = {
       val (raster, destRE, destRegion) = toReproject
       val destRaster = Raster(reprojectedTile, destRE.extent)
@@ -223,7 +232,7 @@ object TileRDDReproject extends LazyLogging {
     */
   def apply[
     K: SpatialComponent: Boundable: ClassTag,
-    V <: CellGrid[Int]: ClassTag: RasterRegionReproject: Stitcher: (? => CropMethods[V]): (? => TileMergeMethods[V]): (? => TilePrototypeMethods[V])
+    V <: CellGrid: ClassTag: RasterRegionReproject: Stitcher: (? => CropMethods[V]): (? => TileMergeMethods[V]): (? => TilePrototypeMethods[V])
   ](
     rdd: RDD[(K, V)] with Metadata[TileLayerMetadata[K]],
     destCrs: CRS,
@@ -303,7 +312,7 @@ object TileRDDReproject extends LazyLogging {
     */
   def apply[
     K: SpatialComponent: Boundable: ClassTag,
-    V <: CellGrid[Int]: ClassTag: RasterRegionReproject: Stitcher: (? => CropMethods[V]): (? => TileMergeMethods[V]): (? => TilePrototypeMethods[V])
+    V <: CellGrid: ClassTag: RasterRegionReproject: Stitcher: (? => CropMethods[V]): (? => TileMergeMethods[V]): (? => TilePrototypeMethods[V])
   ](
     rdd: RDD[(K, V)] with Metadata[TileLayerMetadata[K]],
     destCrs: CRS,
@@ -332,7 +341,7 @@ object TileRDDReproject extends LazyLogging {
     keyBounds: Option[KeyBounds[SpatialKey]]
   )(implicit sc: SparkContext): ReprojectSummary = {
     // Bounds of tiles we need to examine
-    val bounds: GridBounds[Int] = keyBounds match {
+    val bounds: GridBounds = keyBounds match {
       case Some(kb) =>
         kb.toGridBounds
       case None =>

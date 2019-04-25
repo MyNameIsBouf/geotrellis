@@ -16,6 +16,7 @@
 
 package geotrellis.spark.partition
 
+import geotrellis.tiling.{Boundable, Bounds, Metadata}
 import geotrellis.spark._
 import geotrellis.util._
 
