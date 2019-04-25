@@ -181,7 +181,7 @@ lazy val `raster-testkit` = project
   .settings(Settings.`raster-testkit`)
 
 lazy val spark = project
-  .dependsOn(util, raster, `raster-testkit` % Test, `vector-testkit` % Test)
+  .dependsOn(util, raster, `raster-testkit` % Test, `vector-testkit` % Test, `geotrellis-tiling`)
   .settings(commonSettings)
   .settings(Settings.spark)
   .settings(
