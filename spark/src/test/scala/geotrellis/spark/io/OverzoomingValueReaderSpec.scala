@@ -9,7 +9,7 @@ import geotrellis.raster.testkit._
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.index.rowmajor._
+import geotrellis.layers.io.index.rowmajor._
 import geotrellis.spark.testkit._
 
 import java.io.File

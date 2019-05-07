@@ -579,6 +579,7 @@ object Settings {
       spire,
       logging,
       scaffeine,
+      uzaygezenCore,
       scalatest % Test
     ),
     initialCommands in console :=

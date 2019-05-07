@@ -23,7 +23,7 @@ import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 
 import com.amazonaws.services.s3.model.AmazonS3Exception
 import org.apache.avro.Schema

@@ -22,7 +22,7 @@ import geotrellis.tiling.SpatialComponent
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.io.cog._
-import geotrellis.spark.io.index.{Index, KeyIndex}
+import geotrellis.layers.io.index.{Index, KeyIndex}
 import geotrellis.spark.io.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
 import geotrellis.util._
 import org.apache.hadoop.conf.Configuration

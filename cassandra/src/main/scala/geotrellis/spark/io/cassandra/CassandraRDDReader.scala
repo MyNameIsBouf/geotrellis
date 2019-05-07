@@ -21,7 +21,7 @@ import geotrellis.spark.LayerId
 import geotrellis.spark.io._
 import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
-import geotrellis.spark.io.index.{IndexRanges, MergeQueue}
+import geotrellis.layers.io.index.{IndexRanges, MergeQueue}
 import geotrellis.spark.io.cassandra.conf.CassandraConfig
 import geotrellis.spark.util.KryoWrapper
 

@@ -20,7 +20,7 @@ import geotrellis.tiling._
 import geotrellis.layers.io.avro._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.index.KeyIndexMethod
+import geotrellis.layers.io.index.KeyIndexMethod
 import geotrellis.spark.io.json._
 import geotrellis.spark.tiling._
 import geotrellis.raster._

@@ -22,7 +22,7 @@ import geotrellis.tiling.SpatialComponent
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.io.cog._
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.io.s3.{S3AttributeStore, S3Client, S3LayerHeader}
 import geotrellis.util._
 import spray.json._

@@ -22,7 +22,7 @@ import geotrellis.tiling.{SpatialComponent, Boundable}
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.io.cog._
-import geotrellis.spark.io.index.Index
+import geotrellis.layers.io.index.Index
 import geotrellis.spark.io.hadoop._
 import geotrellis.spark.io.hadoop.conf.HadoopConfig
 import geotrellis.util._

@@ -20,7 +20,7 @@ import geotrellis.tiling.SpaceTimeKey
 import java.time.ZonedDateTime
 
 import geotrellis.spark._
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import jp.ne.opt.chronoscala.Imports._
 
 trait SpaceTimeKeyIndexMethods {

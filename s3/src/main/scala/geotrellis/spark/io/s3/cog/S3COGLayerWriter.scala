@@ -23,7 +23,7 @@ import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
 import geotrellis.tiling.SpatialComponent
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.index.{Index, KeyIndex}
+import geotrellis.layers.io.index.{Index, KeyIndex}
 import geotrellis.spark.io.s3.{S3AttributeStore, S3Client, S3LayerHeader, S3RDDWriter, makePath}
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.cog.vrt.VRT

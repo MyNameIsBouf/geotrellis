@@ -20,7 +20,7 @@ import geotrellis.raster.{Tile, TileFeature}
 import geotrellis.tiling.SpaceTimeKey
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.TestTileFeatureFiles
 import geotrellis.spark.testkit.TestEnvironment

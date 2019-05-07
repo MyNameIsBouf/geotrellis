@@ -21,7 +21,7 @@ import geotrellis.spark.io._
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.hadoop.formats.FilterMapFileInputFormat
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.partition._
 import geotrellis.spark.util._
 

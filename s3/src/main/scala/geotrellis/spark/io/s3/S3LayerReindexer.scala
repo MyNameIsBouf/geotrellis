@@ -19,7 +19,7 @@ package geotrellis.spark.io.s3
 import geotrellis.tiling.Boundable
 import geotrellis.spark.LayerId
 import geotrellis.layers.io.avro._
-import geotrellis.spark.io.index.KeyIndexMethod
+import geotrellis.layers.io.index.KeyIndexMethod
 import geotrellis.spark.io._
 import geotrellis.util._
 

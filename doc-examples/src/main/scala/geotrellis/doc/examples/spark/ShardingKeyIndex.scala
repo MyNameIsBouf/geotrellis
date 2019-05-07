@@ -19,7 +19,7 @@ package geotrellis.doc.examples.spark
 import geotrellis.tiling.{SpatialKey, SpaceTimeKey, KeyBounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.io.json._
 import scala.reflect.ClassTag
 

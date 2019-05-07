@@ -19,7 +19,7 @@ package geotrellis.spark.io
 import geotrellis.tiling.{Bounds, Boundable}
 import geotrellis.spark._
 import geotrellis.layers.io.avro.AvroRecordCodec
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.io.json._
 import geotrellis.util._
 

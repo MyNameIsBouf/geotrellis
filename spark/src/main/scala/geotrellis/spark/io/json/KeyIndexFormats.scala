@@ -18,10 +18,10 @@ package geotrellis.spark.io.json
 
 import geotrellis.tiling._
 import geotrellis.spark._
-import geotrellis.spark.io.index._
-import geotrellis.spark.io.index.hilbert._
-import geotrellis.spark.io.index.rowmajor._
-import geotrellis.spark.io.index.zcurve._
+import geotrellis.layers.io.index._
+import geotrellis.layers.io.index.hilbert._
+import geotrellis.layers.io.index.rowmajor._
+import geotrellis.layers.io.index.zcurve._
 
 import com.typesafe.config.ConfigFactory
 import spray.json._
@@ -80,7 +80,7 @@ class KeyIndexRegistry {
 
 trait KeyIndexFormats {
   object KeyIndexJsonFormatFactory {
-    private val REG_SETTING_NAME = "geotrellis.spark.io.index.registrator"
+    private val REG_SETTING_NAME = "geotrellis.layers.io.index.registrator"
 
     private lazy val registry: Map[ClassTag[_], List[KeyIndexFormatEntry[_, _]]] = {
       val entryRegistry = new KeyIndexRegistry

@@ -27,7 +27,7 @@ import geotrellis.spark.io.cog._
 import geotrellis.spark.io.cog.vrt.VRT
 import geotrellis.spark.io.cog.vrt.VRT.IndexedSimpleSource
 import geotrellis.spark.io.hadoop.{HadoopAttributeStore, HadoopLayerHeader, HdfsUtils, SerializableConfiguration}
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.util.ByteReader
 
 import org.apache.hadoop.fs.Path

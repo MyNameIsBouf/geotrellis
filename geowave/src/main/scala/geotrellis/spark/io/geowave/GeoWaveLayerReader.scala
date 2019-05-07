@@ -23,7 +23,7 @@ import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.io.avro._
-import geotrellis.spark.io.index.KeyIndex
+import geotrellis.layers.io.index.KeyIndex
 import geotrellis.util._
 import geotrellis.util.annotations.experimental
 import geotrellis.vector.Extent

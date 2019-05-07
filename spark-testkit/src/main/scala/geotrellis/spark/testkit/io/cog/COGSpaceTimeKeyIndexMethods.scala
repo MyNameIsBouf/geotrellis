@@ -18,7 +18,7 @@ package geotrellis.spark.testkit.io.cog
 
 import geotrellis.tiling.SpaceTimeKey
 import geotrellis.spark._
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 
 import jp.ne.opt.chronoscala.Imports._
 

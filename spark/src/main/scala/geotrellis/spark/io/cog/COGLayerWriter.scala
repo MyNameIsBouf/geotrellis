@@ -27,7 +27,7 @@ import geotrellis.raster.io.geotiff.compression.{Compression, NoCompression}
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io.{AttributeNotFoundError, AttributeStore, LayerNotFoundError, LayerOutOfKeyBoundsError, Writer}
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 
 import com.typesafe.scalalogging.LazyLogging
 import org.apache.spark.rdd.RDD

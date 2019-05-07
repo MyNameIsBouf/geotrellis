@@ -20,7 +20,7 @@ import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.avro.codecs._
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.merge._
 import geotrellis.util._
 

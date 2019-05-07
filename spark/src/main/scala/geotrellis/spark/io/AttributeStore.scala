@@ -18,7 +18,7 @@ package geotrellis.spark.io
 
 import geotrellis.spark._
 import geotrellis.spark.io.cog.ZoomRange
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 import geotrellis.spark.io.json.Implicits._
 
 import org.apache.avro.Schema

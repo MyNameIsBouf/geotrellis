@@ -24,7 +24,7 @@ import geotrellis.raster.io.geotiff.reader.TiffTagsReader
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.index.{Index, KeyIndex, IndexRanges, MergeQueue}
+import geotrellis.layers.io.index.{Index, KeyIndex, IndexRanges, MergeQueue}
 import geotrellis.util._
 import geotrellis.spark.util.KryoWrapper
 

@@ -20,7 +20,7 @@ import geotrellis.tiling.{Boundable, KeyBounds}
 import geotrellis.spark.LayerId
 import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
-import geotrellis.spark.io.index.MergeQueue
+import geotrellis.layers.io.index.MergeQueue
 import geotrellis.spark.util.KryoWrapper
 
 import org.apache.avro.Schema

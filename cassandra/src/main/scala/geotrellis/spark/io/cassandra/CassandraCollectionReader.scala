@@ -22,7 +22,7 @@ import geotrellis.spark.io._
 import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.spark.io.cassandra.conf.CassandraConfig
-import geotrellis.spark.io.index.MergeQueue
+import geotrellis.layers.io.index.MergeQueue
 import geotrellis.spark.util.KryoWrapper
 
 import org.apache.avro.Schema

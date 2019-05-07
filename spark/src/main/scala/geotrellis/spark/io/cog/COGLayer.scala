@@ -27,7 +27,7 @@ import geotrellis.raster.resample.ResampleMethod
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io.hadoop._
-import geotrellis.spark.io.index.KeyIndex
+import geotrellis.layers.io.index.KeyIndex
 import geotrellis.spark.tiling._
 import geotrellis.spark.util._
 import geotrellis.util._

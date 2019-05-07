@@ -18,7 +18,7 @@ package geotrellis.spark.io.hadoop.formats
 
 import geotrellis.spark._
 import geotrellis.spark.io.hadoop._
-import geotrellis.spark.io.index.MergeQueue
+import geotrellis.layers.io.index.MergeQueue
 import org.apache.hadoop.conf._
 import org.apache.hadoop.fs._
 import org.apache.hadoop.io._

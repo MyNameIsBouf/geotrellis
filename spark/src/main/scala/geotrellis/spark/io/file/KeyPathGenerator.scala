@@ -16,7 +16,7 @@
 
 package geotrellis.spark.io.file
 
-import geotrellis.spark.io.index._
+import geotrellis.layers.io.index._
 
 import java.io.File
 
