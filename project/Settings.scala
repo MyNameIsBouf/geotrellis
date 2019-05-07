@@ -570,10 +570,15 @@ object Settings {
   lazy val layers = Seq(
     name := "geotrellis-layers",
     libraryDependencies ++= Seq(
+      apacheIO,
+      avro,
       spire,
       monocleCore,
       monocleMacro,
       chronoscala,
+      spire,
+      logging,
+      scaffeine,
       scalatest % Test
     ),
     initialCommands in console :=
