@@ -292,3 +292,8 @@ lazy val tiling = project
   .dependsOn(raster, vector, proj4, util)
   .settings(commonSettings)
   .settings(Settings.tiling)
+
+lazy val layers = project
+  .dependsOn(tiling)
+  .settings(commonSettings)
+  .settings(Settings.layers)
