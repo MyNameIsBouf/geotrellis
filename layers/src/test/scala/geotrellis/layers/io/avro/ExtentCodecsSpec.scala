@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro
+package geotrellis.layers.io.avro
 
+import geotrellis.layers.io.avro.codecs.Implicits._
 import org.scalatest._
 import geotrellis.proj4._
 import geotrellis.vector._
 import geotrellis.tiling._
-import geotrellis.spark._
 
 class ExtentCodecsSpec extends FunSpec with Matchers with AvroTools  {
   val fortyThreeTwentyFour = CRS.fromEpsgCode(4324)

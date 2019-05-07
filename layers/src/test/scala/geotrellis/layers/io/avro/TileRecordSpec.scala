@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro
+package geotrellis.layers.io.avro
 
-import geotrellis.spark.io.avro.codecs.{KeyValueRecordCodec, TileCodecs, KeyCodecs}
+import geotrellis.layers.io.avro.codecs.{KeyValueRecordCodec, TileCodecs, KeyCodecs}
 import TileCodecs._
 import KeyCodecs._
 import org.scalatest._

@@ -19,7 +19,7 @@ package geotrellis.spark.io
 import geotrellis.raster.{GridBounds, Tile, TileFeature}
 import geotrellis.tiling._
 import geotrellis.spark._
-import geotrellis.spark.io.avro.codecs._
+import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.json._
 import geotrellis.vector.Extent
 import geotrellis.spark.testkit.io._

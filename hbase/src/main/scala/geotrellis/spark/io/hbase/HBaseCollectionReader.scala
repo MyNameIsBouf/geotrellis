@@ -17,8 +17,8 @@
 package geotrellis.spark.io.hbase
 
 import geotrellis.tiling.{Boundable, KeyBounds}
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
-import geotrellis.spark.io.avro.{AvroEncoder, AvroRecordCodec}
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.spark.io.index.MergeQueue
 import geotrellis.spark.util.KryoWrapper
 import geotrellis.spark.LayerId

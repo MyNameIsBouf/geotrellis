@@ -17,8 +17,8 @@
 package geotrellis.spark.io.cassandra
 
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs._
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.cassandra.conf.CassandraConfig
 import geotrellis.spark.LayerId
 import geotrellis.spark.util.KryoWrapper

@@ -21,9 +21,9 @@ import geotrellis.raster._
 import geotrellis.raster.resample._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.spark.io.index._
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import geotrellis.util.Filesystem
 
 import org.apache.avro.Schema

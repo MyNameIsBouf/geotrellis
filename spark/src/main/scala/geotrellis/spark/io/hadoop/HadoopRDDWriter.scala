@@ -18,8 +18,8 @@ package geotrellis.spark.io.hadoop
 
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs._
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.hadoop.formats.FilterMapFileInputFormat
 import geotrellis.spark.io.index._
 import geotrellis.spark.partition._

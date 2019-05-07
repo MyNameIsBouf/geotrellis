@@ -20,7 +20,7 @@ import geotrellis.tiling.{Bounds, Boundable, KeyBounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.io.AttributeStore.Fields
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import geotrellis.spark.io.index._
 import geotrellis.spark.io.json._
 import geotrellis.util._

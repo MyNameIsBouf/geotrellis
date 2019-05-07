@@ -19,8 +19,8 @@ package geotrellis.spark.io.cassandra
 import geotrellis.tiling.{Boundable, KeyBounds}
 import geotrellis.spark.LayerId
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
-import geotrellis.spark.io.avro.{AvroEncoder, AvroRecordCodec}
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.spark.io.cassandra.conf.CassandraConfig
 import geotrellis.spark.io.index.MergeQueue
 import geotrellis.spark.util.KryoWrapper

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io
+package geotrellis.layers.io
 
 import geotrellis.util._
 import org.apache.avro._

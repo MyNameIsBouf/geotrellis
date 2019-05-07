@@ -18,7 +18,7 @@ package geotrellis.spark
 
 import geotrellis.tiling._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro.codecs._
+import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.json._
 import geotrellis.raster._
 

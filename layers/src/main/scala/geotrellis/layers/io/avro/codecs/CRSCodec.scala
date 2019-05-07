@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro.codecs
+package geotrellis.layers.io.avro.codecs
 
 import geotrellis.proj4.CRS
-import geotrellis.spark.io.avro.{AvroRecordCodec, _}
+import geotrellis.layers.io.avro.{AvroRecordCodec, _}
 import org.apache.avro.generic.GenericRecord
 import org.apache.avro.util.Utf8
 import org.apache.avro.{Schema, SchemaBuilder}

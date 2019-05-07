@@ -21,8 +21,8 @@ import geotrellis.raster.resample._
 import geotrellis.tiling.SpatialComponent
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.spark.io.index._
 
 import com.amazonaws.services.s3.model.AmazonS3Exception

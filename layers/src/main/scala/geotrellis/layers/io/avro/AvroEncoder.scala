@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro
+package geotrellis.layers.io.avro
 
 import java.io.ByteArrayInputStream
 import java.util.zip.{InflaterInputStream, DeflaterOutputStream, Deflater}

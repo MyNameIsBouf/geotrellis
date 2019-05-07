@@ -19,7 +19,7 @@ package geotrellis.spark.io.s3
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import geotrellis.spark.io.index._
 import geotrellis.util._
 

@@ -21,8 +21,8 @@ import geotrellis.raster.resample._
 import geotrellis.tiling.SpatialComponent
 import geotrellis.spark.LayerId
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro.{AvroEncoder, AvroRecordCodec}
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 
 import org.apache.accumulo.core.data.{Range => ARange}
 import org.apache.accumulo.core.security.Authorizations

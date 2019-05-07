@@ -19,9 +19,9 @@ package geotrellis.spark.io.file
 import geotrellis.tiling.{Bounds, Boundable, KeyBounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.spark.io.index.MergeQueue
-import geotrellis.spark.io.avro.{AvroEncoder, AvroRecordCodec}
+import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.util.Filesystem
 import org.apache.avro.Schema
 import java.io.File

@@ -19,7 +19,7 @@ package geotrellis.spark.io.hbase
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import geotrellis.util._
 import org.apache.spark.SparkContext
 import spray.json._

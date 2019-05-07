@@ -18,7 +18,7 @@ package geotrellis.spark.io.file
 
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import geotrellis.spark.io.index._
 
 import org.apache.spark.SparkContext

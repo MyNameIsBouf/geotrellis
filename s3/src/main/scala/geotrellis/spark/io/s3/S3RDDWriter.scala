@@ -17,8 +17,8 @@
 package geotrellis.spark.io.s3
 
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs.KeyValueRecordCodec
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.spark.util.KryoWrapper
 import geotrellis.spark.io.s3.conf.S3Config
 

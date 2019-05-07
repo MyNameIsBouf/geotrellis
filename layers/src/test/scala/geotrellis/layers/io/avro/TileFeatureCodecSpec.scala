@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro
+package geotrellis.layers.io.avro
 
 import geotrellis.raster._
-import geotrellis.spark.io._
+import geotrellis.layers.io._
+import geotrellis.layers.io.avro.codecs.Implicits._
 import org.scalatest._
 
 

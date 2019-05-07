@@ -19,8 +19,8 @@ package geotrellis.spark.io.cassandra
 import geotrellis.tiling.{Boundable, Bounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs._
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.index._
 import geotrellis.spark.merge._
 import geotrellis.util._

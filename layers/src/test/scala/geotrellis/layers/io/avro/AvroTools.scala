@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro
+package geotrellis.layers.io.avro
 
 import geotrellis.raster._
 import geotrellis.util.MethodExtensions

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro.codecs
+package geotrellis.layers.io.avro.codecs
 
 import geotrellis.raster.{ConstantTile, Tile}
-import geotrellis.spark.io.avro.{AvroRecordCodec, AvroUnionCodec}
+import geotrellis.layers.io.avro.{AvroRecordCodec, AvroUnionCodec}
 
 object Implicits extends Implicits
 

@@ -19,8 +19,8 @@ package geotrellis.spark.io.hadoop
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs._
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs._
 import geotrellis.spark.io.index.KeyIndex
 import geotrellis.spark.merge._
 import geotrellis.util._

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro
+package geotrellis.layers.io.avro
 
-import geotrellis.spark.io.avro.codecs.TileCodecs
+import geotrellis.layers.io.avro.codecs.TileCodecs
 import org.scalatest._
 import TileCodecs._
 import geotrellis.raster._
-import geotrellis.spark.io.avro.AvroTools._
+import geotrellis.layers.io.avro.AvroTools._
 
 class TileCodecsSpec extends FunSpec with Matchers with AvroTools  {
   describe("TileCodecs") {

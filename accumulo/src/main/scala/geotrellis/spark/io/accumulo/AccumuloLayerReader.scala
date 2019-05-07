@@ -19,7 +19,7 @@ package geotrellis.spark.io.accumulo
 import geotrellis.tiling.{Bounds, Boundable, EmptyBounds, KeyBounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import geotrellis.util._
 
 import org.apache.hadoop.io.Text

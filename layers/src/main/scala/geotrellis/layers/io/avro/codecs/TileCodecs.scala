@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro.codecs
+package geotrellis.layers.io.avro.codecs
 
 import java.nio.ByteBuffer
 
 import geotrellis.raster._
-import geotrellis.spark.io.avro._
-import geotrellis.spark.io.avro.codecs.Implicits._
+import geotrellis.layers.io.avro._
+import geotrellis.layers.io.avro.codecs.Implicits._
 
 import org.apache.avro.SchemaBuilder
 import org.apache.avro.generic._

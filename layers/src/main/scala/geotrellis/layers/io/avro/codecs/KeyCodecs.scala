@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.avro.codecs
+package geotrellis.layers.io.avro.codecs
 
 import geotrellis.tiling.{SpaceTimeKey, SpatialKey}
-import geotrellis.spark._
-import geotrellis.spark.io.avro._
+import geotrellis.layers.io.avro._
 import org.apache.avro._
 import org.apache.avro.generic._
 

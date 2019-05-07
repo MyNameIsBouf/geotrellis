@@ -22,7 +22,7 @@ import geotrellis.raster.merge.TileMergeMethods
 import geotrellis.raster.prototype.TilePrototypeMethods
 import geotrellis.spark._
 import geotrellis.spark.io.LayerWriter
-import geotrellis.spark.io.avro.AvroRecordCodec
+import geotrellis.layers.io.avro.AvroRecordCodec
 import geotrellis.tiling.{SpatialComponent, Bounds, LayoutDefinition}
 import geotrellis.util.{Component, GetComponent}
 
