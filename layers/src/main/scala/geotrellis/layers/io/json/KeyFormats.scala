@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.json
+package geotrellis.layers.io.json
 
 import geotrellis.tiling.{SpatialKey, SpaceTimeKey, KeyBounds, TemporalKey}
-import geotrellis.spark._
 
 import spray.json._
 import spray.json.DefaultJsonProtocol._

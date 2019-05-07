@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.json
+package geotrellis.layers.io.json
 
 import geotrellis.tiling._
-import geotrellis.spark._
 import geotrellis.layers.io.index._
 import geotrellis.layers.io.index.hilbert._
 import geotrellis.layers.io.index.rowmajor._

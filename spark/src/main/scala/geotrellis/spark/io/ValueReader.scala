@@ -21,7 +21,7 @@ import geotrellis.raster.resample._
 import geotrellis.tiling.SpatialComponent
 import geotrellis.spark._
 import geotrellis.layers.io.avro._
-import geotrellis.spark.io.json._
+import geotrellis.layers.io.json._
 import spray.json._
 import scala.reflect._
 import java.net.URI

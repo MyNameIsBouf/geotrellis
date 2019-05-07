@@ -22,7 +22,7 @@ import geotrellis.spark.io._
 import geotrellis.spark.io.AttributeStore.Fields
 import geotrellis.layers.io.avro.AvroRecordCodec
 import geotrellis.layers.io.index._
-import geotrellis.spark.io.json._
+import geotrellis.layers.io.json._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext

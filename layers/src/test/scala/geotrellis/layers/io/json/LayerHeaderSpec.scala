@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.json
+package geotrellis.layers.io.json
 
 import geotrellis.spark._
 import geotrellis.spark.io._
