@@ -16,8 +16,9 @@
 
 package geotrellis.spark.io.file.cog
 
+import geotrellis.layers.io.file.FileLayerHeader
 import geotrellis.spark._
-import geotrellis.spark.io.{LayerHeader, COGLayerType}
+import geotrellis.spark.io.{COGLayerType, LayerHeader}
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.file._
 

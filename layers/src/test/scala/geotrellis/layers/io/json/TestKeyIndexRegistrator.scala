@@ -17,8 +17,8 @@
 package geotrellis.layers.io.json
 
 import geotrellis.tiling._
-import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.layers._
+import geotrellis.layers.io._
 import geotrellis.layers.io.index._
 
 import spray.json._

@@ -1,7 +1,6 @@
 package geotrellis.spark.io
 
 import org.apache.commons.io.FileUtils
-
 import geotrellis.proj4.WebMercator
 import geotrellis.raster._
 import geotrellis.raster.resample._
@@ -11,10 +10,10 @@ import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.layers.io.index.rowmajor._
 import geotrellis.spark.testkit._
-
 import java.io.File
 
-import org.scalatest.{ FunSpec, Matchers }
+import geotrellis.layers.{LayerId, TileLayerMetadata}
+import org.scalatest.{FunSpec, Matchers}
 
 class OverzoomingValueReaderSpec 
   extends FunSpec 

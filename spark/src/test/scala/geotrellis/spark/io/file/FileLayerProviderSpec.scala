@@ -16,6 +16,7 @@
 
 package geotrellis.spark.io.file
 
+import geotrellis.layers.io.file.{FileAttributeStore, FileValueReader}
 import geotrellis.spark.io._
 import geotrellis.spark.testkit.TestEnvironment
 import org.scalatest._

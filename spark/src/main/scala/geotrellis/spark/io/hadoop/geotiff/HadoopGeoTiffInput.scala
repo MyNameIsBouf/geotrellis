@@ -16,7 +16,7 @@
 
 package geotrellis.spark.io.hadoop.geotiff
 
-import geotrellis.spark.io.hadoop.{HdfsRangeReader, HdfsUtils}
+import geotrellis.layers.io.hadoop.{HdfsUtils, HdfsRangeReader}
 import geotrellis.raster.io.geotiff.reader.TiffTagsReader
 import geotrellis.util.annotations.experimental
 

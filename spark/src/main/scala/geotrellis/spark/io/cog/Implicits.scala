@@ -29,9 +29,10 @@ import java.net.URI
 
 import scala.reflect.ClassTag
 
+
 object Implicits extends Implicits
 
-trait Implicits {
+trait Implicits extends vrt.Implicits {
   implicit class withCOGLayerWriteMethods[K: SpatialComponent: ClassTag, V <: CellGrid[Int]: ClassTag](val self: RDD[(K, GeoTiff[V])]) extends MethodExtensions[RDD[(K, GeoTiff[V])]] {
     def write(keyIndex: KeyIndex[K], uri: URI): Unit =
       COGLayer.write[K, V](self)(keyIndex, uri)

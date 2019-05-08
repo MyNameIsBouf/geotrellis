@@ -22,6 +22,7 @@ import geotrellis.raster._
 import geotrellis.raster.io._
 import geotrellis.vector._
 import geotrellis.vector.io._
+import geotrellis.layers.{TileLayerMetadata, LayerId}
 
 import org.apache.avro.Schema
 import spray.json._
@@ -58,7 +59,6 @@ trait Implicits extends KeyFormats with KeyIndexFormats {
       }
   }
 
-  /*
   implicit object LayerIdFormat extends RootJsonFormat[LayerId] {
     def write(id: LayerId) =
       JsObject(
@@ -74,7 +74,6 @@ trait Implicits extends KeyFormats with KeyIndexFormats {
           throw new DeserializationException("LayerId expected")
       }
   }
-  */
 
   implicit object LayoutDefinitionFormat extends RootJsonFormat[LayoutDefinition] {
     def write(obj: LayoutDefinition) =
@@ -151,7 +150,6 @@ trait Implicits extends KeyFormats with KeyIndexFormats {
       }
   }
 
-  /*
   implicit def tileLayerMetadataFormat[K: SpatialComponent: JsonFormat] = new RootJsonFormat[TileLayerMetadata[K]] {
     def write(metadata: TileLayerMetadata[K]) =
       JsObject(
@@ -176,7 +174,6 @@ trait Implicits extends KeyFormats with KeyIndexFormats {
           throw new DeserializationException("TileLayerMetadata expected")
       }
   }
-  */
 
   implicit object RootDateTimeFormat extends RootJsonFormat[ZonedDateTime] {
     def write(dt: ZonedDateTime) = JsString(dt.withZoneSameLocal(ZoneOffset.UTC).toString)

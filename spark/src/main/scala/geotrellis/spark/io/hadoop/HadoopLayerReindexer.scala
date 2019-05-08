@@ -16,14 +16,18 @@
 
 package geotrellis.spark.io.hadoop
 
-import geotrellis.spark._
+import geotrellis.layers.LayerId
+import geotrellis.layers.io._
+import geotrellis.layers.io.hadoop._
 import geotrellis.spark.io._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext
 import org.apache.hadoop.fs.Path
+
 import spray.json.JsonFormat
 import spray.json.DefaultJsonProtocol._
+
 
 object HadoopLayerReindexer {
   def apply(rootPath: Path, attributeStore: AttributeStore)(implicit sc: SparkContext): LayerReindexer[LayerId] =

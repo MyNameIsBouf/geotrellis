@@ -16,13 +16,13 @@
 
 package geotrellis.spark.mapalgebra.focal
 
+import geotrellis.layers.buffer.BufferedTile
 import geotrellis.tiling.{SpatialComponent, TileBounds}
 import geotrellis.spark._
 import geotrellis.spark.buffer._
 import geotrellis.raster._
 import geotrellis.raster.mapalgebra.focal._
 import geotrellis.util.MethodExtensions
-
 import org.apache.spark.rdd.RDD
 import org.apache.spark.Partitioner
 

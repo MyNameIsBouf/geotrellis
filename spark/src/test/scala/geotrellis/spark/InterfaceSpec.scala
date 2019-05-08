@@ -16,12 +16,12 @@
 
 package geotrellis.spark
 
+import geotrellis.layers.{LayerId, Metadata, TileLayerMetadata}
 import geotrellis.tiling._
 import geotrellis.spark.io._
 import geotrellis.layers.io.avro.codecs._
-import geotrellis.spark.io.json._
+import geotrellis.layers.io.json._
 import geotrellis.raster._
-
 import org.apache.spark._
 import org.apache.spark.rdd._
 

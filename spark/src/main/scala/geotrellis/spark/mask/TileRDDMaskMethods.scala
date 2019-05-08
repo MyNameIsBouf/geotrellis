@@ -16,18 +16,20 @@
 
 package geotrellis.spark.mask
 
+import geotrellis.vector._
+import geotrellis.tiling._
 import geotrellis.raster._
 import geotrellis.raster.mask._
-import geotrellis.tiling._
+import geotrellis.layers.Metadata
+import geotrellis.layers.mask.Mask
+import geotrellis.layers.mask.Mask.Options
 import geotrellis.spark._
-import geotrellis.vector._
 import geotrellis.util._
 
 import org.apache.spark.rdd.RDD
 
 import scala.reflect.ClassTag
 
-import Mask.Options
 
 abstract class TileRDDMaskMethods[
     K: SpatialComponent: ClassTag,

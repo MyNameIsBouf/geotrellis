@@ -23,10 +23,10 @@ import geotrellis.raster.prototype.TilePrototypeMethods
 import geotrellis.spark._
 import geotrellis.spark.io.LayerWriter
 import geotrellis.layers.io.avro.AvroRecordCodec
-import geotrellis.tiling.{SpatialComponent, Bounds, LayoutDefinition}
+import geotrellis.tiling.{Bounds, LayoutDefinition, SpatialComponent}
 import geotrellis.util.{Component, GetComponent}
-
 import com.typesafe.scalalogging.LazyLogging
+import geotrellis.layers.{LayerId, Metadata}
 import org.apache.spark.rdd.RDD
 import spray.json.JsonFormat
 

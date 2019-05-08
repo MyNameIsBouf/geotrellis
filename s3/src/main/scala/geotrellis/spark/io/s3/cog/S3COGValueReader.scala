@@ -31,6 +31,9 @@ import com.amazonaws.services.s3.model.AmazonS3Exception
 import scala.reflect.ClassTag
 import java.net.URI
 
+import geotrellis.layers.LayerId
+import geotrellis.layers.io.cog.{COGReader, OverzoomingCOGValueReader, ZoomRange}
+
 class S3COGValueReader(
   val attributeStore: AttributeStore
 ) extends OverzoomingCOGValueReader {

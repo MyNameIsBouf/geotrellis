@@ -78,7 +78,7 @@ trait S3RDDWriter {
 
     pathsToTiles.foreachPartition { partition: Iterator[(String, Iterable[(K, V)])] =>
       if(partition.nonEmpty) {
-        import geotrellis.spark.util.TaskUtils._
+        import geotrellis.layers.utils.TaskUtils._
         val getS3Client = _getS3Client
         val s3client: S3Client = getS3Client()
         val schema = kwWriterSchema.value.getOrElse(_recordCodec.schema)

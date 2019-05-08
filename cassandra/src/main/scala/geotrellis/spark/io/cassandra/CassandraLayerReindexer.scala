@@ -22,11 +22,12 @@ import geotrellis.spark.io._
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.index._
 import geotrellis.util._
-
 import org.apache.spark.SparkContext
 import spray.json.JsonFormat
-
 import java.time.ZonedDateTime
+
+import geotrellis.layers.LayerId
+
 import scala.reflect.ClassTag
 
 object CassandraLayerReindexer {

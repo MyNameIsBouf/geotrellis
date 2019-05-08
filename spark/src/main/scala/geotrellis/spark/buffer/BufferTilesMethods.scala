@@ -16,10 +16,11 @@
 
 package geotrellis.spark.buffer
 
+import geotrellis.tiling._
 import geotrellis.raster._
 import geotrellis.raster.crop._
 import geotrellis.raster.stitch._
-import geotrellis.tiling._
+import geotrellis.layers.buffer.{BufferSizes, BufferedTile, BufferTiles}
 import geotrellis.spark._
 import geotrellis.util.MethodExtensions
 
@@ -27,6 +28,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.Partitioner
 
 import scala.reflect.ClassTag
+
 
 class BufferTilesMethods[
   K: SpatialComponent: ClassTag,

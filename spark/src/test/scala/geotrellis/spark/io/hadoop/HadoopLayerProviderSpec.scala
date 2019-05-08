@@ -16,6 +16,7 @@
 
 package geotrellis.spark.io.hadoop
 
+import geotrellis.layers.io.hadoop.{HadoopAttributeStore, HadoopValueReader}
 import geotrellis.spark.io._
 import geotrellis.spark.testkit.TestEnvironment
 import org.scalatest._

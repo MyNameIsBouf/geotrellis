@@ -17,16 +17,18 @@
 package geotrellis.spark.io
 
 import geotrellis.tiling._
-import geotrellis.spark._
+import geotrellis.layers.io._
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.index._
 import geotrellis.layers.io.json._
+import geotrellis.spark._
 import geotrellis.util._
-
 import org.apache.avro._
 import spray.json._
-
 import java.time.ZonedDateTime
+
+import geotrellis.layers.LayerId
+
 import scala.reflect.ClassTag
 
 abstract class GenericLayerReindexer[Header:JsonFormat](

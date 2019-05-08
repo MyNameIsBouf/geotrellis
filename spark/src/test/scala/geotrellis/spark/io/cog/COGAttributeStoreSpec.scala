@@ -16,6 +16,8 @@
 
 package geotrellis.spark.io.cog
 
+import geotrellis.layers.LayerId
+import geotrellis.layers.io.cog.COGLayerStorageMetadata
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._
@@ -25,7 +27,6 @@ import geotrellis.spark.summary._
 import geotrellis.raster.io._
 import geotrellis.raster.histogram._
 import geotrellis.spark.testkit._
-
 import org.scalatest._
 import spray.json._
 import spray.json.DefaultJsonProtocol._

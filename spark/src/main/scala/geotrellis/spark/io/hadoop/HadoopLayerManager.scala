@@ -17,19 +17,24 @@
 package geotrellis.spark.io.hadoop
 
 import geotrellis.tiling._
-import geotrellis.spark._
-import geotrellis.spark.io._
-import geotrellis.spark.io.AttributeStore.Fields
+import geotrellis.layers.LayerId
+import geotrellis.layers.io.AttributeStore.Fields
+import geotrellis.layers.io.LayerManager
 import geotrellis.layers.io.avro.AvroRecordCodec
+import geotrellis.layers.io.hadoop._
 import geotrellis.layers.io.index._
 import geotrellis.layers.io.json._
+import geotrellis.spark._
+import geotrellis.spark.io._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
+
 import spray.json.JsonFormat
 
 import scala.reflect.ClassTag
+
 
 class HadoopLayerManager(attributeStore: HadoopAttributeStore)(implicit sc: SparkContext)
     extends LayerManager[LayerId] {

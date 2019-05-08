@@ -16,6 +16,7 @@
 
 package geotrellis.spark.io.file.cog
 
+import geotrellis.layers.LayerId
 import geotrellis.raster.{MultibandTile, Tile}
 import geotrellis.raster.io.geotiff._
 import geotrellis.tiling._

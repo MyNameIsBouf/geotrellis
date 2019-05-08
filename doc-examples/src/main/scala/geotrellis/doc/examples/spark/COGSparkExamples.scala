@@ -1,5 +1,7 @@
 package geotrellis.doc.examples.spark
 
+import geotrellis.layers.{LayerId, TileLayerMetadata}
+
 object COGSparkExamples {
   def `Having an RDD[(ProjectedExtent, Tile)] ingest it as a Structured COG layer and query it` = {
     import geotrellis.raster._

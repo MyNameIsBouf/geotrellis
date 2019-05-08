@@ -20,11 +20,12 @@ import geotrellis.raster.{GridBounds, Tile}
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.layers.io.avro.codecs._
-import geotrellis.spark.io.json._
+import geotrellis.layers.io.json._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.TestFiles
-
 import java.time.{ZoneOffset, ZonedDateTime}
+
+import geotrellis.layers.TileLayerMetadata
 
 trait CoordinateSpaceTimeSpec { self: PersistenceSpec[SpaceTimeKey, Tile, TileLayerMetadata[SpaceTimeKey]] =>
   val dates = Vector( // all the dates in the layer

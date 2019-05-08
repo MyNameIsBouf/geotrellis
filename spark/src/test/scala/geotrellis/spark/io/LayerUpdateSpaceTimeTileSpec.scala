@@ -22,18 +22,18 @@ import geotrellis.raster.testkit._
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.layers.io.avro.codecs._
-import geotrellis.spark.io.json._
+import geotrellis.layers.io.json._
 import geotrellis.spark.testkit._
 import geotrellis.spark.util._
 import geotrellis.util._
 import geotrellis.vector._
 import geotrellis.spark.testkit._
 import geotrellis.spark.testkit.io._
-
 import org.apache.spark.rdd._
 import jp.ne.opt.chronoscala.Imports._
-
 import java.time.{ZoneOffset, ZonedDateTime}
+
+import geotrellis.layers.TileLayerMetadata
 
 trait LayerUpdateSpaceTimeTileSpec
     extends TileLayerRDDBuilders

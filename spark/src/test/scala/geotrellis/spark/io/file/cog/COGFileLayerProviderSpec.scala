@@ -16,6 +16,7 @@
 
 package geotrellis.spark.io.file.cog
 
+import geotrellis.layers.io.file.cog.FileCOGValueReader
 import geotrellis.spark.io._
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.file._

@@ -16,6 +16,8 @@
 
 package geotrellis.spark.io.file
 
+import geotrellis.layers.io.file.{FileLayerCopier, FileLayerMover}
+import geotrellis.layers.{LayerId, TileLayerMetadata}
 import geotrellis.raster.{Tile, TileFeature}
 import geotrellis.tiling._
 import geotrellis.spark._

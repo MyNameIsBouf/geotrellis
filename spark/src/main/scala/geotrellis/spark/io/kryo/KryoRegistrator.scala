@@ -17,13 +17,12 @@
 package geotrellis.spark.io.kryo
 
 import org.apache.spark.serializer.{KryoRegistrator => SparkKryoRegistrator}
-
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.serializers._
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
-
 import java.util.{Comparator, TreeMap}
+
 
 /** Account for a bug in Kryo < 2.22 for serializing TreeMaps */
 class XTreeMapSerializer extends MapSerializer {
@@ -140,15 +139,15 @@ class KryoRegistrator extends SparkKryoRegistrator {
     kryo.register(classOf[geotrellis.proj4.CRS])
 
     // UnmodifiableCollectionsSerializer.registerSerializers(kryo)
-    kryo.register(geotrellis.spark.buffer.Direction.Center.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.Top.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.Bottom.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.Left.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.Right.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.TopLeft.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.TopRight.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.BottomLeft.getClass)
-    kryo.register(geotrellis.spark.buffer.Direction.BottomRight.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.Center.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.Top.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.Bottom.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.Left.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.Right.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.TopLeft.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.TopRight.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.BottomLeft.getClass)
+    kryo.register(geotrellis.layers.buffer.Direction.BottomRight.getClass)
 
     /* Exhaustive Registration */
     kryo.register(classOf[Array[Double]])
@@ -191,7 +190,7 @@ class KryoRegistrator extends SparkKryoRegistrator {
     kryo.register(classOf[geotrellis.raster.ProjectedRaster[Any]])
     kryo.register(classOf[geotrellis.raster.TileLayout])
     kryo.register(classOf[geotrellis.tiling.TemporalProjectedExtent])
-    kryo.register(classOf[geotrellis.spark.buffer.BufferSizes])
+    kryo.register(classOf[geotrellis.layers.buffer.BufferSizes])
     kryo.register(classOf[geotrellis.layers.io.avro.AvroRecordCodec[Any]])
     kryo.register(classOf[geotrellis.layers.io.avro.AvroUnionCodec[Any]])
     kryo.register(classOf[geotrellis.layers.io.avro.codecs.KeyValueRecordCodec[Any,Any]])

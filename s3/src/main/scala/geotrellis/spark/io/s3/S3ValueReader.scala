@@ -24,8 +24,9 @@ import geotrellis.spark.io._
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.layers.io.index._
-
 import com.amazonaws.services.s3.model.AmazonS3Exception
+import geotrellis.layers.LayerId
+import geotrellis.layers.io.{OverzoomingValueReader, Reader}
 import org.apache.avro.Schema
 import org.apache.commons.io.IOUtils
 import spray.json._

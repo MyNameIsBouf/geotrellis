@@ -16,22 +16,29 @@
 
 package geotrellis.spark.io.file
 
-import geotrellis.tiling.{Bounds, Boundable}
-import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.tiling.{Boundable, Bounds}
+import geotrellis.layers._
+import geotrellis.layers.io._
+import geotrellis.layers.io.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator, LayerPath}
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.avro.codecs._
 import geotrellis.layers.io.index._
+import geotrellis.layers.merge.Mergable
+import geotrellis.layers.{LayerId, Metadata}
+import geotrellis.spark._
+import geotrellis.spark.io._
 import geotrellis.spark.merge._
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging
+
 import org.apache.spark.rdd.RDD
+
 import spray.json._
 
 import scala.reflect._
-
 import java.io.File
+
 
 /**
   * Handles writing Raster RDDs and their metadata to a filesystem.

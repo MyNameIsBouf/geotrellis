@@ -16,14 +16,17 @@
 
 package geotrellis.spark.io.hadoop
 
-import geotrellis.tiling.{Bounds, Boundable, KeyBounds}
-import geotrellis.spark._
+import geotrellis.tiling.{Boundable, Bounds, KeyBounds}
 import geotrellis.layers.io.avro._
 import geotrellis.layers.io.avro.codecs._
-import geotrellis.spark.io.hadoop.formats._
+import geotrellis.layers.io.hadoop._
+import geotrellis.layers.io.hadoop.formats.FilterMapFileInputFormat
+//import geotrellis.spark._
+//import geotrellis.spark.io.hadoop.formats._
 import geotrellis.spark.util.KryoWrapper
 
 import com.typesafe.scalalogging.LazyLogging
+
 import org.apache.avro.Schema
 import org.apache.hadoop.io._
 import org.apache.hadoop.fs.Path

@@ -16,20 +16,22 @@
 
 package geotrellis.spark.io.file
 
-import geotrellis.tiling.{Bounds, Boundable, KeyBounds}
+import geotrellis.tiling.{Boundable, Bounds, KeyBounds}
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.layers.io.Njoiner
 import geotrellis.layers.io.avro.codecs.KeyValueRecordCodec
 import geotrellis.layers.io.index.{IndexRanges, MergeQueue}
 import geotrellis.layers.io.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.spark.util.KryoWrapper
 import geotrellis.util.Filesystem
+
 import org.apache.avro.Schema
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
+
 import java.io.File
 
-import geotrellis.spark.io.file.conf.FileConfig
+import geotrellis.layers.io.file.conf.FileConfig
 
 object FileRDDReader {
   val defaultThreadCount: Int = FileConfig.threads.rdd.readThreads
@@ -60,7 +62,7 @@ object FileRDDReader {
     sc.parallelize(bins, bins.size)
       .mapPartitions { partition: Iterator[Seq[(BigInt, BigInt)]] =>
         partition flatMap { seq =>
-          LayerReader.njoin[K, V](seq.toIterator, threads) { index: BigInt =>
+          Njoiner.njoin[K, V](seq.toIterator, threads) { index: BigInt =>
             val path = keyPath(index)
             if (new File(path).exists) {
               val bytes: Array[Byte] = Filesystem.slurp(path)

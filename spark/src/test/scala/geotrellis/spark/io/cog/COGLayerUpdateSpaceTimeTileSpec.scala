@@ -28,8 +28,9 @@ import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.io.cog._
 import geotrellis.util._
 import geotrellis.vector._
-
 import java.time._
+
+import geotrellis.layers.{LayerId, TileLayerMetadata}
 
 trait COGLayerUpdateSpaceTimeTileSpec
     extends TileLayerRDDBuilders

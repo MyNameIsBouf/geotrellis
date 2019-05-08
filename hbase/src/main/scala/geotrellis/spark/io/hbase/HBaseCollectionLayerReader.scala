@@ -16,6 +16,7 @@
 
 package geotrellis.spark.io.hbase
 
+import geotrellis.layers.{ContextCollection, LayerId}
 import geotrellis.tiling._
 import geotrellis.spark._
 import geotrellis.spark.io._

@@ -16,7 +16,7 @@
 
 package geotrellis.spark.io.accumulo
 
-import geotrellis.tiling.{Bounds, Boundable}
+import geotrellis.tiling.{Boundable, Bounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.layers.io.avro._
@@ -24,8 +24,9 @@ import geotrellis.layers.io.avro.codecs._
 import geotrellis.layers.io.index._
 import geotrellis.spark.merge._
 import geotrellis.util._
-
 import com.typesafe.scalalogging.LazyLogging
+import geotrellis.layers.merge.Mergable
+import geotrellis.layers.{LayerId, Metadata}
 import org.apache.spark.rdd.RDD
 import spray.json._
 

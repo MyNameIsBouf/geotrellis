@@ -16,6 +16,7 @@
 
 package geotrellis.spark.io.hadoop
 
+import geotrellis.layers.TileLayerMetadata
 import geotrellis.raster.Tile
 import geotrellis.tiling._
 import geotrellis.spark._

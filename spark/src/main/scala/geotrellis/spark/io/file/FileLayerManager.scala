@@ -16,17 +16,16 @@
 
 package geotrellis.spark.io.file
 
-import geotrellis.tiling.{Bounds, Boundable, KeyBounds}
-import geotrellis.spark._
-import geotrellis.spark.io._
-import geotrellis.spark.io.AttributeStore.Fields
+import geotrellis.tiling.{Boundable, Bounds}
+import geotrellis.layers.LayerId
+import geotrellis.layers.io._
 import geotrellis.layers.io.avro._
+import geotrellis.layers.io.file._
 import geotrellis.layers.io.index._
-import geotrellis.layers.io.json._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext
-import org.apache.spark.rdd._
+
 import spray.json.JsonFormat
 
 import scala.reflect.ClassTag

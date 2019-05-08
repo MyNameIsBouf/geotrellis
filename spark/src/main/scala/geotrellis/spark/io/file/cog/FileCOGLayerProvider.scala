@@ -16,8 +16,12 @@
 
 package geotrellis.spark.io.file.cog
 
+import geotrellis.layers.LayerId
+import geotrellis.layers.io.cog.{COGCollectionLayerReader, COGCollectionLayerReaderProvider, COGValueReader, COGValueReaderProvider}
+import geotrellis.layers.io.{AttributeStore, AttributeStoreProvider}
+import geotrellis.layers.io.file.FileAttributeStore
+import geotrellis.layers.io.file.cog.{FileCOGCollectionLayerReader, FileCOGValueReader}
 import geotrellis.spark._
-import geotrellis.spark.io._
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.file._
 
@@ -25,6 +29,7 @@ import org.apache.spark.SparkContext
 
 import java.net.URI
 import java.io.File
+
 
 /**
  * Provides [[FileLayerReader]] instance for URI with `file` scheme.

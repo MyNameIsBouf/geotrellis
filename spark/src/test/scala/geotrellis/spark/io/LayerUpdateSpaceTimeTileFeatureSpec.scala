@@ -26,8 +26,9 @@ import geotrellis.util._
 import geotrellis.vector._
 import geotrellis.spark.testkit._
 import geotrellis.spark.testkit.io._
-
 import java.time.{ZoneOffset, ZonedDateTime}
+
+import geotrellis.layers.TileLayerMetadata
 
 trait LayerUpdateSpaceTimeTileFeatureSpec
     extends TileLayerRDDBuilders
