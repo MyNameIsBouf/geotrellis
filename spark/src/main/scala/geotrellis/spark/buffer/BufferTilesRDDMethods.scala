@@ -30,32 +30,32 @@ import org.apache.spark.Partitioner
 import scala.reflect.ClassTag
 
 
-class BufferTilesMethods[
+class BufferTilesRDDMethods[
   K: SpatialComponent: ClassTag,
   V <: CellGrid[Int]: Stitcher: ClassTag: (? => CropMethods[V])
 ](val self: RDD[(K, V)]) extends MethodExtensions[RDD[(K, V)]] {
   def bufferTiles(bufferSize: Int): RDD[(K, BufferedTile[V])] =
-    BufferTiles(self, bufferSize)
+    BufferTilesRDD(self, bufferSize)
 
   def bufferTiles(bufferSize: Int, partitioner: Option[Partitioner]): RDD[(K, BufferedTile[V])] =
-    BufferTiles(self, bufferSize, partitioner)
+    BufferTilesRDD(self, bufferSize, partitioner)
 
   def bufferTiles(bufferSize: Int, layerBounds: TileBounds): RDD[(K, BufferedTile[V])] =
-    BufferTiles(self, bufferSize, layerBounds)
+    BufferTilesRDD(self, bufferSize, layerBounds)
 
   def bufferTiles(
     bufferSize: Int,
     layerBounds: TileBounds,
     partitioner: Option[Partitioner]
   ): RDD[(K, BufferedTile[V])] =
-    BufferTiles(self, bufferSize, layerBounds, partitioner)
+    BufferTilesRDD(self, bufferSize, layerBounds, partitioner)
 
   def bufferTiles(getBufferSizes: K => BufferSizes): RDD[(K, BufferedTile[V])] =
-    BufferTiles(self, getBufferSizes)
+    BufferTilesRDD(self, getBufferSizes)
 
   def bufferTiles(
     getBufferSizes: K => BufferSizes,
     partitioner: Option[Partitioner]
   ): RDD[(K, BufferedTile[V])] =
-    BufferTiles(self, getBufferSizes, partitioner)
+    BufferTilesRDD(self, getBufferSizes, partitioner)
 }

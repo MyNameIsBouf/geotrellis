@@ -60,9 +60,6 @@ class MergeQueueSpec extends FunSpec {
   //val index = HilbertSpaceTimeKeyIndex(worldKB, 21, 9)
 
   it("should work on high-cardinality range sets") {
-
-    ???
-    /*
     val query = new LayerQuery[SpaceTimeKey, TileLayerMetadata[SpaceTimeKey]]
       .where(Intersects(mPoly))
       .where(Between(ZonedDateTime.of(2012, 1, 1, 0, 0, 0, 0, ZoneId.of("Zulu")), ZonedDateTime.of(2012, 12, 31, 0, 0, 0, 0, ZoneId.of("Zulu"))))
@@ -73,6 +70,5 @@ class MergeQueueSpec extends FunSpec {
 
     val mq = MergeQueue(ranges)
     info(s"MergeQueue Count: ${mq.size}")
-    */
   }
 }

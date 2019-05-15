@@ -13,8 +13,9 @@ import org.apache.log4j.Logger
 import scala.reflect.ClassTag
 import scala.collection.mutable.ArrayBuffer
 
+object BufferTiles extends BufferTiles
 
-object BufferTiles {
+trait BufferTiles {
   val logger = Logger.getLogger(BufferTiles.getClass)
 
   /** Collects tile neighbors by slicing the neighboring tiles to the given
