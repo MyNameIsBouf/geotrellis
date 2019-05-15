@@ -27,7 +27,7 @@ import geotrellis.util._
 import scala.reflect.ClassTag
 
 
-object Mask {
+object Mask extends Mask {
   /** Options for masking tile RDDs.
     *
     * @param     rasterizerOptions        Options that dictate how to rasterize the masking geometries.
@@ -44,7 +44,10 @@ object Mask {
     def DEFAULT = Options()
     implicit def rasterizerOptionsToOptions(opt: Rasterizer.Options): Options = Options(opt)
   }
+}
 
+trait Mask {
+  import Mask._
   // As done by [[geotrellis.raster.rasterize.polygon.TestLineSet]] in [[geotrellis.raster.rasterize.polygon.PolygonRasterizer]].
   private[geotrellis] def eliminateNotQualified(geom: Option[Geometry]): Option[Geometry] = {
 

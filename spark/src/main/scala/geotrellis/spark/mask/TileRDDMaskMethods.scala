@@ -21,7 +21,6 @@ import geotrellis.tiling._
 import geotrellis.raster._
 import geotrellis.raster.mask._
 import geotrellis.layers.Metadata
-import geotrellis.layers.mask.Mask
 import geotrellis.layers.mask.Mask.Options
 import geotrellis.spark._
 import geotrellis.util._
@@ -45,7 +44,7 @@ abstract class TileRDDMaskMethods[
   def mask(geoms: Traversable[Polygon]): RDD[(K, V)] with Metadata[M] = mask(geoms, Options.DEFAULT)
 
   def mask(geoms: Traversable[Polygon], options: Options): RDD[(K, V)] with Metadata[M] =
-    Mask(self, geoms, options)
+    MaskRDD(self, geoms, options)
 
   /** Masks this raster by the given MultiPolygon. */
   def mask(geom: MultiPolygon): RDD[(K, V)] with Metadata[M] = mask(geom, Options.DEFAULT)
@@ -54,7 +53,7 @@ abstract class TileRDDMaskMethods[
 
   /** Masks this raster by the given MultiPolygons. */
   def mask(geoms: Traversable[MultiPolygon], options: Options)(implicit d: DummyImplicit): RDD[(K, V)] with Metadata[M] =
-    Mask(self, geoms, options)
+    MaskRDD(self, geoms, options)
 
   /** Masks this raster by the given Extent. */
   def mask(ext: Extent): RDD[(K, V)] with Metadata[M] =
@@ -62,5 +61,5 @@ abstract class TileRDDMaskMethods[
 
   /** Masks this raster by the given Extent. */
   def mask(ext: Extent, options: Options): RDD[(K, V)] with Metadata[M] =
-    Mask(self, ext, options)
+    MaskRDD(self, ext, options)
 }
