@@ -16,21 +16,23 @@
 
 package geotrellis.spark.testkit.io
 
-import geotrellis.layers.io.ValueReader
 import geotrellis.tiling.{Boundable, Bounds, SpatialKey}
-import geotrellis.layers.{LayerId, Metadata}
-import geotrellis.layers.io.index._
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.json._
+import geotrellis.layers._
+import geotrellis.layers.index._
+import geotrellis.layers.avro._
+import geotrellis.layers.json._
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.util._
+
 import org.apache.spark.rdd.RDD
 import org.scalatest._
+
 import spray.json._
 import spray.json.DefaultJsonProtocol._
 
 import scala.reflect._
+
 
 case class PersistenceSpecDefinition[K](
   keyIndexMethodName: String,

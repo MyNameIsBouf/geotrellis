@@ -16,10 +16,11 @@
 
 package geotrellis.spark.testkit
 
-import geotrellis.spark._
 import geotrellis.tiling.SpatialKey
 import geotrellis.raster._
 import geotrellis.raster.io.geotiff._
+import geotrellis.layers._
+import geotrellis.spark._
 
 import org.apache.spark._
 
