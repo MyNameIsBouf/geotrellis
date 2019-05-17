@@ -17,6 +17,7 @@
 package geotrellis.layers.json
 
 import geotrellis.tiling._
+import geotrellis.tiling.json.KeyFormats._
 import geotrellis.layers.index._
 import geotrellis.layers.index.hilbert._
 import geotrellis.layers.index.rowmajor._
@@ -29,7 +30,6 @@ import spray.json.DefaultJsonProtocol._
 import scala.collection.mutable
 import scala.reflect._
 
-import KeyFormats._
 
 case class KeyIndexFormatEntry[K: JsonFormat: ClassTag, T <: KeyIndex[K]: JsonFormat: ClassTag](typeName: String) {
   val keyClassTag = implicitly[ClassTag[K]]

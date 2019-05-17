@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.layers.json
+package geotrellis.tiling.json
 
 import geotrellis.tiling.{SpatialKey, SpaceTimeKey, KeyBounds, TemporalKey}
 

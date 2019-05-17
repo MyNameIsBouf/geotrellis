@@ -33,7 +33,7 @@ import java.net.URI
 
 object Implicits extends Implicits
 
-trait Implicits extends KeyFormats with KeyIndexFormats {
+trait Implicits extends KeyIndexFormats {
 
   implicit object CRSFormat extends RootJsonFormat[CRS] {
     def write(crs: CRS) =
