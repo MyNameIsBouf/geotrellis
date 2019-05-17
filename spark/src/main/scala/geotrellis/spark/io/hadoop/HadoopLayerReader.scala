@@ -20,9 +20,9 @@ import geotrellis.tiling.{Boundable, Bounds, EmptyBounds, KeyBounds}
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.layers.{LayerId, Metadata}
-import geotrellis.layers.io._
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
+import geotrellis.layers._
+import geotrellis.layers.avro._
+import geotrellis.layers.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging

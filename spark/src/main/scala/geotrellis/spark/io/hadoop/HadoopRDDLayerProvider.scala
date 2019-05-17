@@ -17,8 +17,8 @@
 package geotrellis.spark.io.hadoop
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.hadoop.{HadoopAttributeStore, HadoopValueReader, HadoopCollectionLayerProvider}
-import geotrellis.layers.io._
+import geotrellis.layers.hadoop.{HadoopAttributeStore, HadoopValueReader, HadoopCollectionLayerProvider}
+import geotrellis.layers._
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.util.UriUtils

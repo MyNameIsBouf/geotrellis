@@ -22,9 +22,9 @@ import geotrellis.raster.io.geotiff.GeoTiff
 import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
 import geotrellis.raster.resample._
 import geotrellis.layers.LayerId
-import geotrellis.layers.io._ //{AttributeStore, Reader}
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.hadoop._
+import geotrellis.layers._ //{AttributeStore, Reader}
+import geotrellis.layers.avro._
+import geotrellis.layers.hadoop._
 import geotrellis.spark.io._
 import geotrellis.util.MethodExtensions
 

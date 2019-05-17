@@ -21,13 +21,13 @@ import geotrellis.raster._
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
 import geotrellis.raster.io.geotiff._
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.{AttributeStore, COGLayerType}
-import geotrellis.layers.io.cog._
-import geotrellis.layers.io.cog.vrt.VRT
-import geotrellis.layers.io.cog.vrt.VRT.IndexedSimpleSource
-import geotrellis.layers.io.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator}
-import geotrellis.layers.io.file.cog.byteReader
-import geotrellis.layers.io.index._
+import geotrellis.layers.{AttributeStore, COGLayerType}
+import geotrellis.layers.cog._
+import geotrellis.layers.cog.vrt.VRT
+import geotrellis.layers.cog.vrt.VRT.IndexedSimpleSource
+import geotrellis.layers.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator}
+import geotrellis.layers.file.cog.byteReader
+import geotrellis.layers.index._
 
 import geotrellis.spark._
 import geotrellis.spark.io.cog._

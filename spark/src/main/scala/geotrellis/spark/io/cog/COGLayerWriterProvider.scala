@@ -16,7 +16,7 @@
 
 package geotrellis.spark.io.cog
 
-import geotrellis.layers.io.AttributeStore
+import geotrellis.layers.AttributeStore
 
 import java.net.URI
 

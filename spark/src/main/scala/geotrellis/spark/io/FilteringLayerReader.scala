@@ -18,9 +18,9 @@ package geotrellis.spark.io
 
 import geotrellis.tiling._
 import geotrellis.layers.Metadata
-import geotrellis.layers.io.{LayerQuery, BoundLayerQuery}
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.json._
+import geotrellis.layers.{LayerQuery, BoundLayerQuery}
+import geotrellis.layers.avro._
+import geotrellis.layers.json._
 import geotrellis.spark._
 import geotrellis.util._
 import org.apache.spark.rdd._

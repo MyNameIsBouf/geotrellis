@@ -16,7 +16,7 @@
 
 package geotrellis.spark.io.hadoop.formats
 
-import geotrellis.layers.io.hadoop.formats.BinaryFileInputFormat
+import geotrellis.layers.hadoop.formats.BinaryFileInputFormat
 import geotrellis.raster._
 import geotrellis.raster.io.geotiff._
 import geotrellis.vector._

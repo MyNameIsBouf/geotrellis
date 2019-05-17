@@ -20,11 +20,11 @@ import geotrellis.tiling._
 import geotrellis.raster._
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
 import geotrellis.layers.{LayerId, TileLayerMetadata}
-import geotrellis.layers.io._
-import geotrellis.layers.io.cog.{ZoomRange, Extension}
-import geotrellis.layers.io.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator}
-import geotrellis.layers.io.file.conf.FileConfig
-import geotrellis.layers.io.file.cog.byteReader
+import geotrellis.layers._
+import geotrellis.layers.cog.{ZoomRange, Extension}
+import geotrellis.layers.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator}
+import geotrellis.layers.file.conf.FileConfig
+import geotrellis.layers.file.cog.byteReader
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.io.cog._

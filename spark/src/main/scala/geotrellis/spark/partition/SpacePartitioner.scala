@@ -19,8 +19,8 @@ package geotrellis.spark.partition
 import geotrellis.layers.Metadata
 import geotrellis.tiling._
 import geotrellis.spark._
-import geotrellis.layers.io.index._
-import geotrellis.layers.io.index.zcurve.{Z2, Z3, ZSpatialKeyIndex}
+import geotrellis.layers.index._
+import geotrellis.layers.index.zcurve.{Z2, Z3, ZSpatialKeyIndex}
 import geotrellis.util._
 import org.apache.spark._
 import org.apache.spark.rdd.{RDD, ShuffledRDD}

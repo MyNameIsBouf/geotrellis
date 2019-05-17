@@ -16,8 +16,8 @@
 
 package geotrellis.spark.io.cog.vrt
 
-import geotrellis.layers.io.cog.vrt.VRT
-import geotrellis.layers.io.cog.vrt.VRT._
+import geotrellis.layers.cog.vrt.VRT
+import geotrellis.layers.cog.vrt.VRT._
 import geotrellis.spark._
 import geotrellis.util._
 

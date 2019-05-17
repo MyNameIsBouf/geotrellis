@@ -23,13 +23,13 @@ import geotrellis.raster.io.geotiff.GeoTiff
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
 import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.{AttributeStore, COGLayerType, InvalidLayerIdError}
-import geotrellis.layers.io.cog.{COGLayerStorageMetadata, ZoomRange, _}
-import geotrellis.layers.io.cog.vrt.VRT
-import geotrellis.layers.io.cog.vrt.VRT.IndexedSimpleSource
-import geotrellis.layers.io.hadoop.{HadoopLayerHeader, HdfsUtils, SerializableConfiguration, HadoopAttributeStore}
-import geotrellis.layers.io.hadoop.cog.byteReader
-import geotrellis.layers.io.index._
+import geotrellis.layers.{AttributeStore, COGLayerType, InvalidLayerIdError}
+import geotrellis.layers.cog.{COGLayerStorageMetadata, ZoomRange, _}
+import geotrellis.layers.cog.vrt.VRT
+import geotrellis.layers.cog.vrt.VRT.IndexedSimpleSource
+import geotrellis.layers.hadoop.{HadoopLayerHeader, HdfsUtils, SerializableConfiguration, HadoopAttributeStore}
+import geotrellis.layers.hadoop.cog.byteReader
+import geotrellis.layers.index._
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.hadoop._
 import geotrellis.util.ByteReader

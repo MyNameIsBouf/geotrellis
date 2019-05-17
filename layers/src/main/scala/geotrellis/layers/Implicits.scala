@@ -8,8 +8,10 @@ import java.time.Instant
 
 object Implicits extends Implicits
 
-trait Implicits extends merge.Implicits
+trait Implicits extends avro.codecs.Implicits
+  with merge.Implicits
   with buffer.Implicits
+  with json.Implicits
   with mapalgebra.Implicits
   with mapalgebra.focal.Implicits
   with mapalgebra.focal.hillshade.Implicits

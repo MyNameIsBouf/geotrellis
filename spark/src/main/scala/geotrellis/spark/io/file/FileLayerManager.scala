@@ -18,10 +18,10 @@ package geotrellis.spark.io.file
 
 import geotrellis.tiling.{Boundable, Bounds}
 import geotrellis.layers.LayerId
-import geotrellis.layers.io._
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.file._
-import geotrellis.layers.io.index._
+import geotrellis.layers._
+import geotrellis.layers.avro._
+import geotrellis.layers.file._
+import geotrellis.layers.index._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext

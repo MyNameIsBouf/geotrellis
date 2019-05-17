@@ -26,9 +26,9 @@ import geotrellis.raster.crop._
 import geotrellis.raster.io.geotiff._
 import geotrellis.raster.io.geotiff.compression.{Compression, NoCompression}
 import geotrellis.layers.{LayerId, Metadata, TileLayerMetadata}
-import geotrellis.layers.io._
-import geotrellis.layers.io.cog.{COGLayerStorageMetadata, ZoomRange}
-import geotrellis.layers.io.index._
+import geotrellis.layers._
+import geotrellis.layers.cog.{COGLayerStorageMetadata, ZoomRange}
+import geotrellis.layers.index._
 import geotrellis.spark._
 
 import com.typesafe.scalalogging.LazyLogging

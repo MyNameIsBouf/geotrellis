@@ -18,7 +18,7 @@ package geotrellis.spark.filter
 
 import geotrellis.tiling._
 import geotrellis.layers.Metadata
-import geotrellis.layers.io.{LayerQuery, BoundLayerQuery}
+import geotrellis.layers.{LayerQuery, BoundLayerQuery}
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.util._

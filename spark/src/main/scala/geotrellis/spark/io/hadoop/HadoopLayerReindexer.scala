@@ -17,8 +17,8 @@
 package geotrellis.spark.io.hadoop
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io._
-import geotrellis.layers.io.hadoop._
+import geotrellis.layers._
+import geotrellis.layers.hadoop._
 import geotrellis.spark.io._
 import geotrellis.util._
 

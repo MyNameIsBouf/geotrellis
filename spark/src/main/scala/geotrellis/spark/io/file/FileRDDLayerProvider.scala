@@ -17,8 +17,8 @@
 package geotrellis.spark.io.file
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io._
-import geotrellis.layers.io.file.FileCollectionLayerProvider
+import geotrellis.layers._
+import geotrellis.layers.file.FileCollectionLayerProvider
 import geotrellis.spark.io._
 
 import org.apache.spark.SparkContext

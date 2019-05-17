@@ -18,9 +18,9 @@ package geotrellis.spark.pyramid
 
 import geotrellis.tiling._
 import geotrellis.layers.{LayerId, Metadata}
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.index.KeyIndexMethod
-import geotrellis.layers.io.json._
+import geotrellis.layers.avro._
+import geotrellis.layers.index.KeyIndexMethod
+import geotrellis.layers.json._
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.tiling._

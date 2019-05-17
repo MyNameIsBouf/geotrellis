@@ -17,8 +17,8 @@
 package geotrellis.spark.io.cog
 
 import geotrellis.layers._
-import geotrellis.layers.io._
-import geotrellis.layers.io.cog._
+import geotrellis.layers._
+import geotrellis.layers.cog._
 import geotrellis.spark._
 import geotrellis.raster.{CellGrid, GridBounds, MultibandTile, RasterExtent, Tile}
 import geotrellis.raster.crop._
@@ -28,7 +28,7 @@ import geotrellis.raster.io.geotiff.reader.TiffTagsReader
 import geotrellis.tiling._
 import geotrellis.spark.io._
 import geotrellis.spark.util.KryoWrapper
-import geotrellis.layers.io.index.{Index, IndexRanges, KeyIndex, MergeQueue}
+import geotrellis.layers.index.{Index, IndexRanges, KeyIndex, MergeQueue}
 import geotrellis.util._
 
 

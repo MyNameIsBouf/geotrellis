@@ -20,7 +20,7 @@ import geotrellis.raster._
 import geotrellis.raster.io.geotiff._
 import geotrellis.tiling.{SpatialKey, SpatialComponent}
 import geotrellis.spark._
-import geotrellis.layers.io.index.KeyIndex
+import geotrellis.layers.index.KeyIndex
 import geotrellis.util._
 
 import org.apache.spark.rdd.RDD

@@ -27,9 +27,9 @@ import geotrellis.raster.merge._
 import geotrellis.raster.prototype._
 import geotrellis.raster.resample.ResampleMethod
 import geotrellis.layers.{Metadata, TileLayerMetadata}
-import geotrellis.layers.io.cog.{COGLayerMetadata, ZoomRange}
-import geotrellis.layers.io.hadoop.{SerializableConfiguration, HdfsUtils}
-import geotrellis.layers.io.index.KeyIndex
+import geotrellis.layers.cog.{COGLayerMetadata, ZoomRange}
+import geotrellis.layers.hadoop.{SerializableConfiguration, HdfsUtils}
+import geotrellis.layers.index.KeyIndex
 
 import geotrellis.spark._
 import geotrellis.spark.pyramid.Pyramid

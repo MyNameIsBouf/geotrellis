@@ -18,11 +18,11 @@ package geotrellis.spark.io.hadoop
 
 import geotrellis.tiling._
 import geotrellis.layers.{LayerId, Metadata}
-import geotrellis.layers.io._
-import geotrellis.layers.io.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.avro.codecs._
-import geotrellis.layers.io.index.KeyIndex
+import geotrellis.layers._
+import geotrellis.layers.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
+import geotrellis.layers.avro._
+import geotrellis.layers.avro.codecs._
+import geotrellis.layers.index.KeyIndex
 import geotrellis.layers.merge.Mergable
 import geotrellis.spark.io._
 import geotrellis.util._

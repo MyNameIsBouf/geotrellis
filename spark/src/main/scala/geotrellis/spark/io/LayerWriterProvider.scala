@@ -1,7 +1,7 @@
 package geotrellis.spark.io
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.AttributeStore
+import geotrellis.layers.AttributeStore
 
 import java.net.URI
 

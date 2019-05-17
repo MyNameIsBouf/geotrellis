@@ -17,10 +17,10 @@
 package geotrellis.spark.io.file.cog
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.cog.{COGCollectionLayerReader, COGCollectionLayerReaderProvider, COGValueReader}
-import geotrellis.layers.io.{AttributeStore, AttributeStoreProvider}
-import geotrellis.layers.io.file.FileAttributeStore
-import geotrellis.layers.io.file.cog.{FileCOGCollectionLayerReader, FileCOGValueReader}
+import geotrellis.layers.cog.{COGCollectionLayerReader, COGCollectionLayerReaderProvider, COGValueReader}
+import geotrellis.layers.{AttributeStore, AttributeStoreProvider}
+import geotrellis.layers.file.FileAttributeStore
+import geotrellis.layers.file.cog.{FileCOGCollectionLayerReader, FileCOGValueReader}
 import geotrellis.spark._
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.file._

@@ -19,8 +19,8 @@ package geotrellis.spark.io.hadoop.cog
 import java.net.URI
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.AttributeStore
-import geotrellis.layers.io.hadoop.cog.HadoopCOGCollectionLayerProvider
+import geotrellis.layers.AttributeStore
+import geotrellis.layers.hadoop.cog.HadoopCOGCollectionLayerProvider
 import geotrellis.spark.io.cog._
 import org.apache.hadoop.fs.Path
 import org.apache.spark.SparkContext

@@ -4,9 +4,9 @@ import geotrellis.raster.CellGrid
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
 import geotrellis.tiling.SpatialComponent
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.Reader
-import geotrellis.layers.io.hadoop._
-import geotrellis.layers.io.hadoop.cog._
+import geotrellis.layers.Reader
+import geotrellis.layers.hadoop._
+import geotrellis.layers.hadoop.cog._
 import geotrellis.spark.io.hadoop._
 import geotrellis.util.MethodExtensions
 

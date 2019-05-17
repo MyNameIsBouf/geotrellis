@@ -20,8 +20,8 @@ import geotrellis.proj4.CRS
 import geotrellis.vector._
 import geotrellis.raster._
 import geotrellis.raster.io.geotiff._
-import geotrellis.layers.io.hadoop._
-import geotrellis.layers.io.hadoop.formats.BinaryFileInputFormat
+import geotrellis.layers.hadoop._
+import geotrellis.layers.hadoop.formats.BinaryFileInputFormat
 import geotrellis.spark.io.hadoop._
 import geotrellis.spark.ingest._
 

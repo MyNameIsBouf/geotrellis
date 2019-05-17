@@ -17,7 +17,7 @@
 package geotrellis.spark.io.hadoop
 
 import geotrellis.raster.render.Png
-import geotrellis.layers.io.hadoop.HdfsUtils
+import geotrellis.layers.hadoop.HdfsUtils
 
 import org.apache.commons.io.IOUtils
 import org.apache.hadoop.conf.Configuration

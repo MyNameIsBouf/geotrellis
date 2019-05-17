@@ -17,7 +17,7 @@
 package geotrellis.spark.io.cog
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.AttributeStore
+import geotrellis.layers.AttributeStore
 
 import org.apache.spark.SparkContext
 

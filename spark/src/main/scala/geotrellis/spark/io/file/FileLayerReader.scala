@@ -18,10 +18,10 @@ package geotrellis.spark.io.file
 
 import geotrellis.tiling._
 import geotrellis.layers.LayerId
-import geotrellis.layers.io._
-import geotrellis.layers.io.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator}
-import geotrellis.layers.io.avro._
-import geotrellis.layers.io.index._
+import geotrellis.layers._
+import geotrellis.layers.file.{FileAttributeStore, FileLayerHeader, KeyPathGenerator}
+import geotrellis.layers.avro._
+import geotrellis.layers.index._
 import geotrellis.spark._
 import geotrellis.spark.io.FilteringLayerReader
 import geotrellis.util._

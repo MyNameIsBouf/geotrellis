@@ -27,7 +27,7 @@ import org.apache.hadoop.mapreduce._
 import java.time.{ZoneOffset, ZonedDateTime}
 import java.time.format.DateTimeFormatter
 
-import geotrellis.layers.io.hadoop.formats.BinaryFileInputFormat
+import geotrellis.layers.hadoop.formats.BinaryFileInputFormat
 
 @deprecated("TemporalGeoTiffInputFormat is deprecated, use HadoopGeoTiffRDD instead", "1.0.0")
 object TemporalGeoTiffInputFormat {

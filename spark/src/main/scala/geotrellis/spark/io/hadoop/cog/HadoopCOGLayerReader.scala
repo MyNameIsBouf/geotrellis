@@ -20,12 +20,12 @@ import geotrellis.raster._
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
 import geotrellis.tiling.{Boundable, SpatialComponent}
 import geotrellis.layers.{LayerId, TileLayerMetadata}
-import geotrellis.layers.io._
-import geotrellis.layers.io.cog.{ZoomRange, Extension}
-import geotrellis.layers.io.hadoop.conf.HadoopConfig
-import geotrellis.layers.io.hadoop._
-import geotrellis.layers.io.hadoop.cog.byteReader
-import geotrellis.layers.io.index.Index
+import geotrellis.layers._
+import geotrellis.layers.cog.{ZoomRange, Extension}
+import geotrellis.layers.hadoop.conf.HadoopConfig
+import geotrellis.layers.hadoop._
+import geotrellis.layers.hadoop.cog.byteReader
+import geotrellis.layers.index.Index
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.hadoop._
 import geotrellis.util._
