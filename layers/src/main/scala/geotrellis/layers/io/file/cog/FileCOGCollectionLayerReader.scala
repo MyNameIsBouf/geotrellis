@@ -43,8 +43,7 @@ class FileCOGCollectionLayerReader(
   val attributeStore: AttributeStore,
   val catalogPath: String,
   val defaultThreads: Int = FileCOGCollectionLayerReader.defaultThreadCount
-)
-  extends COGCollectionLayerReader[LayerId] with LazyLogging {
+) extends COGCollectionLayerReader[LayerId] with LazyLogging {
 
   implicit def getByteReader(uri: URI): ByteReader = byteReader(uri)
 

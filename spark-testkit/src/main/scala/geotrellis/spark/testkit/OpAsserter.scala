@@ -65,7 +65,7 @@ trait OpAsserter { self: TestEnvironment =>
     sparkOp: TileLayerRDD[SpatialKey] => TileLayerRDD[SpatialKey],
     asserter: (Tile, Tile) => Unit = tilesEqual
   ) = {
-    val (tile, rasterRDD) = 
+    val (tile, rasterRDD) =
       createTileLayerRDD(
         input,
         layoutCols,

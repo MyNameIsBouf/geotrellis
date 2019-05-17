@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.buffer
+package geotrellis.layers.buffer
 
-import geotrellis.layers.buffer.BufferSizes
-import geotrellis.tiling._
-import geotrellis.spark._
-import geotrellis.spark.io._
 import geotrellis.raster.crop._
-import geotrellis.raster.prototype._
 import geotrellis.raster.io.geotiff.SinglebandGeoTiff
-import geotrellis.raster.testkit._
-import geotrellis.spark.testkit._
+import geotrellis.tiling._
 import org.scalatest.FunSpec
 
 object BufferTilesSpec {

@@ -17,7 +17,7 @@
 package geotrellis.spark.io.file.cog
 
 import geotrellis.layers.LayerId
-import geotrellis.layers.io.cog.{COGCollectionLayerReader, COGCollectionLayerReaderProvider, COGValueReader, COGValueReaderProvider}
+import geotrellis.layers.io.cog.{COGCollectionLayerReader, COGCollectionLayerReaderProvider, COGValueReader}
 import geotrellis.layers.io.{AttributeStore, AttributeStoreProvider}
 import geotrellis.layers.io.file.FileAttributeStore
 import geotrellis.layers.io.file.cog.{FileCOGCollectionLayerReader, FileCOGValueReader}
@@ -36,8 +36,7 @@ import java.io.File
  * The uri represents local path to catalog root.
  *  ex: `file:/tmp/catalog`
  */
-class FileCOGLayerProvider extends AttributeStoreProvider
-    with COGLayerReaderProvider with COGLayerWriterProvider with COGValueReaderProvider with COGCollectionLayerReaderProvider {
+class FileCOGLayerProvider extends COGLayerReaderProvider with COGLayerWriterProvider with COGCollectionLayerReaderProvider {
 
   def canProcess(uri: URI): Boolean = uri.getScheme match {
     case str: String => if (str.toLowerCase == "file") true else false
