@@ -17,10 +17,10 @@
 package geotrellis.layers.mapalgebra.focal
 
 import geotrellis.tiling.{SpatialComponent, TileBounds}
+import geotrellis.raster.buffer.BufferedTile
 import geotrellis.raster._
 import geotrellis.raster.mapalgebra.focal._
 import geotrellis.layers._
-import geotrellis.layers.buffer.BufferedTile
 import geotrellis.util.MethodExtensions
 
 object CollectionFocalOperation {

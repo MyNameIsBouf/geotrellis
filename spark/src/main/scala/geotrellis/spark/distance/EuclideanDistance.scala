@@ -16,14 +16,14 @@
 
 package geotrellis.spark.distance
 
+import geotrellis.tiling._
 import geotrellis.vector._
 import geotrellis.vector.triangulation._
 import geotrellis.vector.voronoi._
-import geotrellis.tiling._
 import geotrellis.raster._
 import geotrellis.raster.distance._
-import geotrellis.layers.buffer.Direction
-import geotrellis.layers.buffer.Direction._
+import geotrellis.raster.buffer.Direction
+import geotrellis.raster.buffer.Direction._
 import geotrellis.spark._
 
 import org.locationtech.jts.geom.Coordinate

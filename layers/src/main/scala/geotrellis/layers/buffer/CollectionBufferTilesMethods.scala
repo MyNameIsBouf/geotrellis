@@ -17,6 +17,7 @@
 package geotrellis.layers.buffer
 
 import geotrellis.raster._
+import geotrellis.raster.buffer._
 import geotrellis.raster.crop._
 import geotrellis.raster.stitch._
 import geotrellis.tiling.{SpatialComponent, TileBounds}

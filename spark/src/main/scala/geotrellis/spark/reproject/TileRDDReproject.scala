@@ -19,6 +19,7 @@ package geotrellis.spark.reproject
 import geotrellis.proj4._
 import geotrellis.tiling._
 import geotrellis.raster._
+import geotrellis.raster.buffer.{BufferSizes, BufferedTile}
 import geotrellis.raster.crop._
 import geotrellis.raster.merge._
 import geotrellis.raster.prototype._
@@ -26,7 +27,6 @@ import geotrellis.raster.reproject._
 import geotrellis.raster.resample._
 import geotrellis.raster.stitch._
 import geotrellis.layers.{Metadata, TileLayerMetadata}
-import geotrellis.layers.buffer.{BufferSizes, BufferedTile}
 import geotrellis.spark._
 import geotrellis.spark.buffer.BufferTilesRDD
 import geotrellis.spark.merge._

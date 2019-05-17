@@ -1,13 +1,14 @@
 package geotrellis.spark.buffer
 
 import geotrellis.tiling._
+import geotrellis.raster
 import geotrellis.raster._
+import geotrellis.raster.buffer.{BufferSizes, BufferedTile}
+import geotrellis.raster.buffer.Direction._
 import geotrellis.raster.crop._
 import geotrellis.raster.stitch._
-import geotrellis.layers
 import geotrellis.layers.TileLayerMetadata
-import geotrellis.layers.buffer.{BufferTiles, BufferSizes, BufferedTile}
-import geotrellis.layers.buffer.Direction._
+import geotrellis.layers.buffer.BufferTiles
 import geotrellis.spark._
 import geotrellis.util._
 
@@ -24,7 +25,7 @@ object BufferTilesRDD extends BufferTiles {
   def bufferWithNeighbors[
     K: SpatialComponent: ClassTag,
     V <: CellGrid[Int]: Stitcher: ClassTag
-  ](rdd: RDD[(K, Iterable[(layers.buffer.Direction, V)])]): RDD[(K, BufferedTile[V])] = {
+  ](rdd: RDD[(K, Iterable[(raster.buffer.Direction, V)])]): RDD[(K, BufferedTile[V])] = {
     val r = rdd
       .flatMapValues { neighbors =>
         neighbors.find( _._1 == Center) map { case (_, centerTile) =>
@@ -67,7 +68,7 @@ object BufferTilesRDD extends BufferTiles {
 
           val stitched = implicitly[Stitcher[V]].stitch(pieces, cols, rows)
 
-          layers.buffer.BufferedTile(stitched, GridBounds(bufferSizes.left, bufferSizes.top, cols - bufferSizes.right - 1, rows - bufferSizes.bottom - 1))
+          raster.buffer.BufferedTile(stitched, GridBounds(bufferSizes.left, bufferSizes.top, cols - bufferSizes.right - 1, rows - bufferSizes.bottom - 1))
         }
     }
     r
@@ -292,7 +293,7 @@ object BufferTilesRDD extends BufferTiles {
         val cols = tile.cols
         val rows = tile.rows
 
-        def genSection(neighbor: layers.buffer.Direction): (K, (K, layers.buffer.Direction, V)) = {
+        def genSection(neighbor: raster.buffer.Direction): (K, (K, raster.buffer.Direction, V)) = {
           val (xOfs, yOfs) = DirectionOp.offsetOf(neighbor)
           val targetKey = key.setComponent(SpatialKey(x + xOfs, y + yOfs))
           val targetDir = DirectionOp.opp(neighbor)
@@ -315,9 +316,9 @@ object BufferTilesRDD extends BufferTiles {
         }
 
         if (includeKey(key))
-          Seq(Center, Left, Right, Bottom, Top, TopLeft, TopRight, BottomLeft, BottomRight).map(genSection): Seq[(K, (K, layers.buffer.Direction, V))]
+          Seq(Center, Left, Right, Bottom, Top, TopLeft, TopRight, BottomLeft, BottomRight).map(genSection): Seq[(K, (K, raster.buffer.Direction, V))]
         else
-          Seq(Left, Right, Bottom, Top, TopLeft, TopRight, BottomLeft, BottomRight).map(genSection): Seq[(K, (K, layers.buffer.Direction, V))]
+          Seq(Left, Right, Bottom, Top, TopLeft, TopRight, BottomLeft, BottomRight).map(genSection): Seq[(K, (K, raster.buffer.Direction, V))]
       }}
 
     val grouped =
@@ -343,7 +344,7 @@ object BufferTilesRDD extends BufferTiles {
           val totalWidth = lefts.last
           val totalHeight = tops.last
 
-          def loc(dir: layers.buffer.Direction) = dir match {
+          def loc(dir: raster.buffer.Direction) = dir match {
             case TopLeft     => (lefts(0), tops(0))
             case Top         => (lefts(1), tops(0))
             case TopRight    => (lefts(2), tops(0))

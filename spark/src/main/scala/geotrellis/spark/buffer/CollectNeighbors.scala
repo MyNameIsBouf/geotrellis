@@ -17,13 +17,13 @@
 package geotrellis.spark.buffer
 
 import geotrellis.tiling.{SpatialComponent, SpatialKey}
+import geotrellis.raster
 import geotrellis.raster._
+import geotrellis.raster.buffer.Direction._
 import geotrellis.raster.crop._
 import geotrellis.raster.stitch._
-import geotrellis.layers
-import geotrellis.layers.buffer.Direction._
-import geotrellis.util._
 import geotrellis.spark._
+import geotrellis.util._
 
 import org.apache.spark.rdd._
 import org.apache.spark.storage.StorageLevel
@@ -37,8 +37,8 @@ object CollectNeighbors {
   /** Collects the neighbors of each value (including itself) into a Map
     * giving the direction of the neighbor.
     */
-  def apply[K: SpatialComponent: ClassTag, V](rdd: RDD[(K, V)]): RDD[(K, Iterable[(layers.buffer.Direction, (K, V))])] = {
-    val neighbored: RDD[(K, (layers.buffer.Direction, (K, V)))] =
+  def apply[K: SpatialComponent: ClassTag, V](rdd: RDD[(K, V)]): RDD[(K, Iterable[(raster.buffer.Direction, (K, V))])] = {
+    val neighbored: RDD[(K, (raster.buffer.Direction, (K, V)))] =
       rdd
         .flatMap { case (key, value) =>
           val SpatialKey(col, row) = key
@@ -58,7 +58,7 @@ object CollectNeighbors {
           )
         }
 
-    val grouped: RDD[(K, Iterable[(layers.buffer.Direction, (K, V))])] =
+    val grouped: RDD[(K, Iterable[(raster.buffer.Direction, (K, V))])] =
       rdd.partitioner match {
         case Some(partitioner) => neighbored.groupByKey(partitioner)
         case None => neighbored.groupByKey

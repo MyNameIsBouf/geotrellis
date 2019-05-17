@@ -1,11 +1,12 @@
 package geotrellis.layers.buffer
 
 import geotrellis.tiling._
+import geotrellis.raster
 import geotrellis.raster._
 import geotrellis.raster.crop._
 import geotrellis.raster.stitch._
-import Direction._
-import geotrellis.layers
+import geotrellis.raster.buffer.{BufferedTile, BufferSizes}
+import geotrellis.raster.buffer.Direction._
 import geotrellis.util._
 
 import org.apache.log4j.Logger
@@ -26,15 +27,15 @@ trait BufferTiles {
     tile: V,
     includeKey: SpatialKey => Boolean,
     getBufferSizes: SpatialKey => BufferSizes
-  ): Seq[(K, (layers.buffer.Direction, V))] = {
+  ): Seq[(K, (raster.buffer.Direction, V))] = {
     val SpatialKey(col, row) = key.getComponent[SpatialKey]
-    val parts = new ArrayBuffer[(K, (layers.buffer.Direction, V))](9)
+    val parts = new ArrayBuffer[(K, (raster.buffer.Direction, V))](9)
 
     val cols = tile.cols
     val rows = tile.rows
 
     // ex: adding "TopLeft" corner of this tile to contribute to "TopLeft" tile at key
-    def addSlice(spatialKey: SpatialKey, direction: => layers.buffer.Direction) {
+    def addSlice(spatialKey: SpatialKey, direction: => raster.buffer.Direction) {
       if(includeKey(spatialKey)) {
         val bufferSizes = getBufferSizes(spatialKey)
 
@@ -74,7 +75,7 @@ trait BufferTiles {
   def bufferWithNeighbors[
     K: SpatialComponent,
     V <: CellGrid[Int]: Stitcher
-  ](seq: Seq[(K, Seq[(layers.buffer.Direction, V)])]): Seq[(K, BufferedTile[V])] = {
+  ](seq: Seq[(K, Seq[(raster.buffer.Direction, V)])]): Seq[(K, BufferedTile[V])] = {
     seq
       .flatMap { case (key, neighbors) =>
         val opt = neighbors.find(_._1 == Center).map { case (_, centerTile) =>
@@ -118,7 +119,7 @@ trait BufferTiles {
 
           val stitched = implicitly[Stitcher[V]].stitch(pieces, cols, rows)
 
-          layers.buffer.BufferedTile(stitched, GridBounds(bufferSizes.left, bufferSizes.top, cols - bufferSizes.right - 1, rows - bufferSizes.bottom - 1))
+          raster.buffer.BufferedTile(stitched, GridBounds(bufferSizes.left, bufferSizes.top, cols - bufferSizes.right - 1, rows - bufferSizes.bottom - 1))
         }
 
         if(opt.isEmpty) None else Some(key -> opt.get)
@@ -196,7 +197,7 @@ trait BufferTiles {
       contributingKeys.groupBy(_._1).mapValues { _.map(_._2).toMap }.toSeq
     }
 
-    val grouped: Seq[(K, Seq[(layers.buffer.Direction, V)])] =
+    val grouped: Seq[(K, Seq[(raster.buffer.Direction, V)])] =
       seq.zip(surroundingBufferSizes).flatMap { case ((key, tile), (k2, bufferSizesMap)) =>
         collectWithTileNeighbors(key, tile, bufferSizesMap.contains _, bufferSizesMap)
       }.groupBy(_._1).mapValues(_.map(_._2)).toSeq
@@ -223,7 +224,7 @@ trait BufferTiles {
     V <: CellGrid[Int]: Stitcher: (? => CropMethods[V])
   ](seq: Seq[(K, V)], bufferSize: Int, layerBounds: TileBounds): Seq[(K, BufferedTile[V])] = {
     val bufferSizes = BufferSizes(bufferSize, bufferSize, bufferSize, bufferSize)
-    val grouped: Seq[(K, Seq[(layers.buffer.Direction, V)])] =
+    val grouped: Seq[(K, Seq[(raster.buffer.Direction, V)])] =
       seq
         .flatMap { case (key, tile) =>
           collectWithTileNeighbors(key, tile, { key => layerBounds.contains(key.col, key.row) }, { key => bufferSizes })

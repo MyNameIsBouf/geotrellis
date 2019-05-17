@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.layers.buffer
+package geotrellis.raster.buffer
 
 sealed trait Direction
 

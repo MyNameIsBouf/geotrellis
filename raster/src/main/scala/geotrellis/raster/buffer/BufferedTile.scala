@@ -1,4 +1,4 @@
-package geotrellis.layers.buffer
+package geotrellis.raster.buffer
 
 import geotrellis.raster.GridBounds
 
