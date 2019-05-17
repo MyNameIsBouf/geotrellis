@@ -44,33 +44,5 @@ package object hadoop extends Implicits {
 
       withInputDirectory(searchPath)
     }
-
-    def setSerialized[T: ClassTag](key: String, value: T): Unit = {
-      ???
-      /*
-      val ser = KryoSerializer.serialize(value)
-      self.set(key, new String(ser.map(_.toChar)))
-      */
-    }
-
-    def getSerialized[T: ClassTag](key: String): T = {
-      ???
-      /*
-      val s = self.get(key)
-      KryoSerializer.deserialize(s.toCharArray.map(_.toByte))
-      */
-    }
-
-    def getSerializedOption[T: ClassTag](key: String): Option[T] = {
-      ???
-      /*
-      val s = self.get(key)
-      if(s == null) {
-        None
-      } else {
-        Some(KryoSerializer.deserialize(s.toCharArray.map(_.toByte)))
-      }
-      */
-    }
   }
 }

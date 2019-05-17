@@ -21,8 +21,7 @@ import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.hadoop._
 import geotrellis.layers.hadoop.formats.FilterMapFileInputFormat
-//import geotrellis.spark._
-//import geotrellis.spark.io.hadoop.formats._
+import geotrellis.spark.io.hadoop.formats.FilterMapSparkFileInputFormat
 import geotrellis.spark.util.KryoWrapper
 
 import com.typesafe.scalalogging.LazyLogging
@@ -89,7 +88,7 @@ object HadoopRDDReader extends LazyLogging {
 
     sc.newAPIHadoopRDD(
       inputConf,
-      classOf[FilterMapFileInputFormat],
+      classOf[FilterMapSparkFileInputFormat],
       classOf[BigIntWritable],
       classOf[BytesWritable]
     )

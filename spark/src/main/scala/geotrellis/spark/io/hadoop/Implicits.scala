@@ -21,11 +21,11 @@ import geotrellis.raster.CellGrid
 import geotrellis.raster.io.geotiff.GeoTiff
 import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
 import geotrellis.raster.resample._
-import geotrellis.layers.LayerId
-import geotrellis.layers._ //{AttributeStore, Reader}
+import geotrellis.layers.{LayerId, AttributeStore, Reader}
 import geotrellis.layers.avro._
 import geotrellis.layers.hadoop._
 import geotrellis.spark.io._
+import geotrellis.spark.util.KryoSerializer
 import geotrellis.util.MethodExtensions
 
 import spray.json._
@@ -80,5 +80,26 @@ trait Implicits {
 
     def apply(rootPath: Path)(implicit sc: SparkContext): HadoopValueReader =
       HadoopValueReader(HadoopAttributeStore(rootPath, sc.hadoopConfiguration))
+  }
+
+  implicit class withHadoopSparkConfigurationMethods(val self: Configuration) extends MethodExtensions[Configuration] {
+    def setSerialized[T: ClassTag](key: String, value: T): Unit = {
+      val ser = KryoSerializer.serialize(value)
+      self.set(key, new String(ser.map(_.toChar)))
+    }
+
+    def getSerialized[T: ClassTag](key: String): T = {
+      val s = self.get(key)
+      KryoSerializer.deserialize(s.toCharArray.map(_.toByte))
+    }
+
+    def getSerializedOption[T: ClassTag](key: String): Option[T] = {
+      val s = self.get(key)
+      if(s == null) {
+        None
+      } else {
+        Some(KryoSerializer.deserialize(s.toCharArray.map(_.toByte)))
+      }
+    }
   }
 }

@@ -16,14 +16,5 @@
 
 package geotrellis.spark.io
 
-import geotrellis.spark.util.KryoSerializer
-import geotrellis.util.MethodExtensions
-
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.fs.Path
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
-import org.apache.hadoop.mapreduce._
-
-import scala.reflect._
 
 package object hadoop extends Implicits
