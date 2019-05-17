@@ -16,15 +16,16 @@
 
 package geotrellis.spark.io
 
-import geotrellis.raster.{GridBounds, Tile, TileFeature}
 import geotrellis.tiling._
+import geotrellis.raster.{GridBounds, Tile, TileFeature}
+import geotrellis.layers._
+import geotrellis.layers.avro.codecs._
+import geotrellis.layers.json._
 import geotrellis.spark._
-import geotrellis.layers.io.avro.codecs._
-import geotrellis.layers.io.json._
 import geotrellis.spark.testkit.io._
+
 import java.time.{ZoneOffset, ZonedDateTime}
 
-import geotrellis.layers.TileLayerMetadata
 
 trait CoordinateSpaceTimeTileFeatureSpec { self: PersistenceSpec[SpaceTimeKey, TileFeature[Tile, Tile], TileLayerMetadata[SpaceTimeKey]] =>
   val dates = Vector( // all the dates in the layer

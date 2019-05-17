@@ -16,16 +16,17 @@
 
 package geotrellis.spark.filter
 
-import geotrellis.layers.TileLayerMetadata
 import geotrellis.proj4.LatLng
+import geotrellis.vector._
+import geotrellis.tiling._
 import geotrellis.raster.{FloatConstantNoDataCellType, GridBounds, TileLayout}
 import geotrellis.raster.io.geotiff.SinglebandGeoTiff
-import geotrellis.tiling._
+import geotrellis.layers._
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.tiling._
-import geotrellis.vector._
 import geotrellis.spark.testkit._
+
 import org.scalatest.FunSpec
 
 class TileLayerRDDFilterMethodsSpec extends FunSpec with TestEnvironment {

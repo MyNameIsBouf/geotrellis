@@ -1,15 +1,17 @@
 package geotrellis.spark.io.cog
 
-import geotrellis.layers
-import geotrellis.layers.io.cog.COGLayerMetadata
 import geotrellis.proj4._
-import geotrellis.raster._
+import geotrellis.vector._
 import geotrellis.tiling._
+import geotrellis.raster._
+import geotrellis.layers
+import geotrellis.layers.cog.COGLayerMetadata
 import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.tiling._
-import geotrellis.vector._
+
 import org.scalatest._
+
 import spray.json._
 
 class COGLayerMetadataSpec extends FunSpec with Matchers {
@@ -26,7 +28,7 @@ class COGLayerMetadataSpec extends FunSpec with Matchers {
     }
 
     it("should produce correct metadata for landsat scene example, build all partial pyramids correct") {
-      val expectedZoomRanges = Vector(layers.io.cog.ZoomRange(0,0), layers.io.cog.ZoomRange(1,1), layers.io.cog.ZoomRange(2,2), layers.io.cog.ZoomRange(3,3), layers.io.cog.ZoomRange(4,4), layers.io.cog.ZoomRange(5,5), layers.io.cog.ZoomRange(6,6), layers.io.cog.ZoomRange(7,8), layers.io.cog.ZoomRange(9,13))
+      val expectedZoomRanges = Vector(layers.cog.ZoomRange(0,0), layers.cog.ZoomRange(2,2), layers.cog.ZoomRange(3,3), layers.cog.ZoomRange(4,4), layers.cog.ZoomRange(5,5), layers.cog.ZoomRange(6,6), layers.cog.ZoomRange(7,8), layers.cog.ZoomRange(9,13))
 
       val md = generateLCMetadata()
       // println(md.toJson.prettyPrint)
@@ -34,7 +36,7 @@ class COGLayerMetadataSpec extends FunSpec with Matchers {
     }
 
     it("should produce correct metadata for landsat scene example, build until zoom level that is not a lower zoom level of some partial pyramid") {
-      val expectedZoomRanges = Vector(layers.io.cog.ZoomRange(7,8), layers.io.cog.ZoomRange(9,13))
+      val expectedZoomRanges = Vector(layers.cog.ZoomRange(7,8), layers.cog.ZoomRange(9,13))
 
       val md = generateLCMetadata(minZoom = 8)
       // println(md.toJson.prettyPrint)
@@ -42,7 +44,7 @@ class COGLayerMetadataSpec extends FunSpec with Matchers {
     }
 
     it("should produce correct metadata for landsat scene example, build until zoom level where this level is both min and max level of this partial pyramid") {
-      val expectedZoomRanges = Vector(layers.io.cog.ZoomRange(6,6), layers.io.cog.ZoomRange(7,8), layers.io.cog.ZoomRange(9,13))
+      val expectedZoomRanges = Vector(layers.cog.ZoomRange(6,6), layers.cog.ZoomRange(7,8), layers.cog.ZoomRange(9,13))
 
       val md = generateLCMetadata(minZoom = 6)
       // println(md.toJson.prettyPrint)

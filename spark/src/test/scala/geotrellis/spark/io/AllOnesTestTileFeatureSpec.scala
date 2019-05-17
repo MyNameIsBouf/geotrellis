@@ -16,13 +16,13 @@
 
 package geotrellis.spark.io
 
-import geotrellis.layers.TileLayerMetadata
-import geotrellis.raster.{GridBounds, Tile, TileFeature}
-import geotrellis.tiling._
-import geotrellis.spark._
-import geotrellis.layers.io.avro.codecs._
-import geotrellis.layers.io.json._
 import geotrellis.vector.Extent
+import geotrellis.tiling._
+import geotrellis.raster.{GridBounds, Tile, TileFeature}
+import geotrellis.layers._
+import geotrellis.layers.avro.codecs._
+import geotrellis.layers.json._
+import geotrellis.spark._
 import geotrellis.spark.testkit.io._
 
 

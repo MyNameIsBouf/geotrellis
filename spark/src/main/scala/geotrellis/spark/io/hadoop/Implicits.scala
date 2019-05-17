@@ -20,8 +20,9 @@ import geotrellis.tiling.SpatialComponent
 import geotrellis.raster.CellGrid
 import geotrellis.raster.io.geotiff.GeoTiff
 import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
+import geotrellis.raster.render.{Jpg, Png}
 import geotrellis.raster.resample._
-import geotrellis.layers.{LayerId, AttributeStore, Reader}
+import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.layers.hadoop._
 import geotrellis.spark.io._
@@ -46,6 +47,12 @@ trait Implicits {
   implicit class withSaveBytesToHadoopMethods[K](rdd: RDD[(K, Array[Byte])]) extends SaveBytesToHadoopMethods[K](rdd)
   implicit class withSaveToHadoopMethods[K,V](rdd: RDD[(K,V)]) extends SaveToHadoopMethods[K, V](rdd)
 
+  implicit class withJpgHadoopSparkWriteMethods(val self: Jpg) extends JpgHadoopSparkWriteMethods(self)
+
+  implicit class withPngHadoopSparkWriteMethods(val self: Png) extends PngHadoopSparkWriteMethods(self)
+
+  implicit class withGeoTiffSparkHadoopWriteMethods[T <: CellGrid[Int]](val self: GeoTiff[T]) extends GeoTiffHadoopSparkWriteMethods[T](self)
+
   implicit class withHadoopAttributeStoreMethods(val self: HadoopAttributeStore.type) extends MethodExtensions[HadoopAttributeStore.type] {
     def apply(rootPath: Path)(implicit sc: SparkContext): HadoopAttributeStore =
       HadoopAttributeStore(rootPath, sc.hadoopConfiguration)
@@ -62,6 +69,14 @@ trait Implicits {
 
     def apply(rootPath: Path)(implicit sc: SparkContext): HadoopLayerDeleter =
       HadoopLayerDeleter(HadoopAttributeStore(rootPath, new Configuration), sc.hadoopConfiguration)
+  }
+
+  implicit class withHadoopCollectionLayerReaderMethods(val self: HadoopCollectionLayerReader.type) extends MethodExtensions[HadoopCollectionLayerReader.type] {
+    def apply(rootPath: Path)(implicit sc: SparkContext): HadoopCollectionLayerReader =
+      new HadoopCollectionLayerReader(HadoopAttributeStore(rootPath), sc.hadoopConfiguration)
+
+    def apply(attributeStore: AttributeStore)(implicit sc: SparkContext): HadoopCollectionLayerReader =
+      new HadoopCollectionLayerReader(attributeStore, sc.hadoopConfiguration)
   }
 
   implicit class withHadoopValueReaderMethods(val self: HadoopValueReader.type) extends MethodExtensions[HadoopValueReader.type] {

@@ -16,13 +16,14 @@
 
 package geotrellis.spark.io.file
 
-import geotrellis.layers.io.file.{FileLayerCopier, FileLayerMover}
-import geotrellis.layers.{LayerId, TileLayerMetadata}
-import geotrellis.raster.Tile
 import geotrellis.tiling._
+import geotrellis.raster.Tile
+import geotrellis.layers.{LayerId, TileLayerMetadata}
+import geotrellis.layers.file._
+import geotrellis.layers.index._
 import geotrellis.spark._
 import geotrellis.spark.io._
-import geotrellis.layers.io.index._
+import geotrellis.spark.io.file._
 import geotrellis.spark.testkit._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.TestFiles

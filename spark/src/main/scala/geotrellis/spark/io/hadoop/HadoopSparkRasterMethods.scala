@@ -16,13 +16,24 @@
 
 package geotrellis.spark.io.hadoop
 
+import geotrellis.raster.CellGrid
+import geotrellis.raster.io.geotiff.GeoTiff
+import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
+import geotrellis.raster.render.{Jpg, Png}
+import geotrellis.layers.hadoop._
 import geotrellis.util.MethodExtensions
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.spark.SparkContext
 
-trait HadoopRasterMethods[T] extends MethodExtensions[T] {
+
+trait HadoopSparkRasterMethods[T] extends HadoopRasterMethods[T] {
   def write(path: Path)(implicit sc: SparkContext): Unit = write(path, sc.hadoopConfiguration)
-  def write(path: Path, conf: Configuration): Unit
 }
+
+abstract class JpgHadoopSparkWriteMethods(self: Jpg) extends JpgHadoopWriteMethods(self) with HadoopSparkRasterMethods[Jpg]
+
+abstract class PngHadoopSparkWriteMethods(self: Png) extends PngHadoopWriteMethods(self) with HadoopSparkRasterMethods[Png]
+
+abstract class GeoTiffHadoopSparkWriteMethods[T <: CellGrid[Int]](self: GeoTiff[T]) extends GeoTiffHadoopWriteMethods[T](self) with HadoopSparkRasterMethods[GeoTiff[T]]

@@ -22,6 +22,7 @@ import geotrellis.raster.crop._
 import geotrellis.raster.io.geotiff.SinglebandGeoTiff
 import geotrellis.raster.testkit._
 import geotrellis.layers.ContextCollection
+import geotrellis.layers.buffer.BufferTiles
 import geotrellis.spark._
 import geotrellis.spark.testkit._
 
@@ -97,7 +98,7 @@ class BufferTilesSpec extends FunSpec with TestEnvironment with RasterMatchers {
     it("the lightweight RDD version should work for the whole collection") {
       val bounds = metadata.bounds
 
-      val buffers = BufferTiles(ContextRDD(wholeRdd, metadata), { _: SpatialKey => BufferSizes(2,2,2,2) }).collect
+      val buffers = BufferTilesRDD(ContextRDD(wholeRdd, metadata), { _: SpatialKey => BufferSizes(2,2,2,2) }).collect
       val tile11 = buffers.find{ case (key, _) => key == SpatialKey(1, 1) }.get._2.tile
       val baseline = originalRaster.crop(98, 98, 201, 201, Crop.Options.DEFAULT)
       assertEqual(baseline.tile, tile11)
