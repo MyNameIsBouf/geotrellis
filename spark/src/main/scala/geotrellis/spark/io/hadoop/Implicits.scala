@@ -53,6 +53,9 @@ trait Implicits {
   implicit class withGeoTiffSparkHadoopWriteMethods[T <: CellGrid[Int]](val self: GeoTiff[T]) extends GeoTiffHadoopSparkWriteMethods[T](self)
 
   implicit class withHadoopAttributeStoreMethods(val self: HadoopAttributeStore.type) extends MethodExtensions[HadoopAttributeStore.type] {
+    def apply(rootPath: String)(implicit sc: SparkContext): HadoopAttributeStore =
+      apply(new Path(rootPath))(sc)
+
     def apply(rootPath: Path)(implicit sc: SparkContext): HadoopAttributeStore =
       HadoopAttributeStore(rootPath, sc.hadoopConfiguration)
   }

@@ -26,8 +26,8 @@ import org.apache.spark.SparkContext
 
 import java.net.URI
 
+
 class COGHadoopAttributeStoreSpec extends COGAttributeStoreSpec {
-  lazy val _sc = implicitly[SparkContext]
-  lazy val attributeStore = HadoopAttributeStore.apply(outputLocalPath)(sc)
+  lazy val attributeStore = HadoopAttributeStore.apply(outputLocalPath)
   lazy val header = HadoopLayerHeader("geotrellis.tiling.SpatialKey", "geotrellis.raster.Tile", new URI(outputLocalPath), COGLayerType)
 }
