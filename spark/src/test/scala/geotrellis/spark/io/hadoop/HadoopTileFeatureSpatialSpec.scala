@@ -18,7 +18,7 @@ package geotrellis.spark.io.hadoop
 
 import geotrellis.tiling._
 import geotrellis.raster.{Tile, TileFeature}
-import geotrellis.layers.{LayerId, TileLayerMetadata}
+import geotrellis.layers.{LayerId, TileLayerMetadata, InvalidLayerIdError}
 import geotrellis.layers.hadoop._
 import geotrellis.spark._
 import geotrellis.spark.io._

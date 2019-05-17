@@ -18,13 +18,16 @@ package geotrellis.spark.io.hadoop.cog
 
 import geotrellis.layers.{COGLayerType, LayerHeader}
 import geotrellis.layers.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
-import geotrellis.spark._
+import geotrellis.layers.hadoop._
 import geotrellis.spark.io.cog._
 import geotrellis.spark.io.hadoop._
+
+import org.apache.spark.SparkContext
 
 import java.net.URI
 
 class COGHadoopAttributeStoreSpec extends COGAttributeStoreSpec {
-  lazy val attributeStore = HadoopAttributeStore(outputLocalPath)
+  lazy val _sc = implicitly[SparkContext]
+  lazy val attributeStore = HadoopAttributeStore.apply(outputLocalPath)(sc)
   lazy val header = HadoopLayerHeader("geotrellis.tiling.SpatialKey", "geotrellis.raster.Tile", new URI(outputLocalPath), COGLayerType)
 }

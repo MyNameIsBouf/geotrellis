@@ -19,7 +19,6 @@ package geotrellis.spark.io.hadoop
 import geotrellis.tiling.SpatialComponent
 import geotrellis.raster.CellGrid
 import geotrellis.raster.io.geotiff.GeoTiff
-import geotrellis.raster.io.geotiff.writer.GeoTiffWriter
 import geotrellis.raster.render.{Jpg, Png}
 import geotrellis.raster.resample._
 import geotrellis.layers._
