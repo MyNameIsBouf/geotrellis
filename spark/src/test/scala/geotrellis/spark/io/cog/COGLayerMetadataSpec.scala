@@ -28,7 +28,7 @@ class COGLayerMetadataSpec extends FunSpec with Matchers {
     }
 
     it("should produce correct metadata for landsat scene example, build all partial pyramids correct") {
-      val expectedZoomRanges = Vector(layers.cog.ZoomRange(0,0), layers.cog.ZoomRange(2,2), layers.cog.ZoomRange(3,3), layers.cog.ZoomRange(4,4), layers.cog.ZoomRange(5,5), layers.cog.ZoomRange(6,6), layers.cog.ZoomRange(7,8), layers.cog.ZoomRange(9,13))
+      val expectedZoomRanges = Vector(layers.cog.ZoomRange(0,0), layers.cog.ZoomRange(1, 1), layers.cog.ZoomRange(2,2), layers.cog.ZoomRange(3,3), layers.cog.ZoomRange(4,4), layers.cog.ZoomRange(5,5), layers.cog.ZoomRange(6,6), layers.cog.ZoomRange(7,8), layers.cog.ZoomRange(9,13))
 
       val md = generateLCMetadata()
       // println(md.toJson.prettyPrint)

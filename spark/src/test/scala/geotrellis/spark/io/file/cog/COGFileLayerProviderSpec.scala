@@ -44,7 +44,7 @@ class FileCOGLayerProviderSpec extends FunSpec with TestEnvironment {
 
   it("should be able to process a URI without a scheme") {
     val badURI = new java.net.URI("/tmp/catalog")
-    val provider = new FileCOGLayerProvider
+    val provider = new FileCOGRDDLayerProvider
 
     provider.canProcess(badURI) should be (true)
   }
