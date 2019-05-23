@@ -17,7 +17,10 @@
 package geotrellis.layers.hadoop.conf
 
 import geotrellis.layers.util.threadsFromString
+import geotrellis.util.CamelCaseConfig
+
 import pureconfig.generic.auto._
+
 
 case class HadoopCollectionConfig(read: String = "default") {
   def readThreads: Int = threadsFromString(read)

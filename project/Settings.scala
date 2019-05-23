@@ -516,6 +516,7 @@ object Settings {
     name := "geotrellis-util",
     libraryDependencies ++= Seq(
       logging,
+      pureconfig,
       scalatest % Test
     )
   )

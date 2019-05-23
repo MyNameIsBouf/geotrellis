@@ -16,6 +16,8 @@
 
 package geotrellis.layers.hadoop.conf
 
+import geotrellis.util.CamelCaseConfig
+
 import pureconfig.generic.auto._
 
 
