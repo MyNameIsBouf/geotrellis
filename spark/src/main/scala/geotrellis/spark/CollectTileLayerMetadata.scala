@@ -29,7 +29,7 @@ import geotrellis.layers.TileLayerMetadata
 import org.apache.spark.rdd._
 
 
-private[spark] object TileLayerRDDMetadata {
+object CollectTileLayerMetadata {
   private def collectMetadata[
     K: (? => TilerKeyMethods[K, K2]),
     V <: CellGrid[Int],
