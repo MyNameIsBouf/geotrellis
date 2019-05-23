@@ -22,6 +22,8 @@ import geotrellis.util.CamelCaseConfig
 import pureconfig.generic.auto._
 
 
+// TODO: Break out the RDDConfig when we rework how we do threading
+
 case class FileCollectionConfig(read: String = "default") {
   def readThreads: Int = threadsFromString(read)
 }
