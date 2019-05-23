@@ -72,7 +72,7 @@ abstract class AsyncWriter[Client, V, E](threads: Int) extends Serializable {
 
     def retire(row: (String, E)): fs2.Stream[IO, Try[Long]] = {
       val writeTask = IO(writeRecord(client, row._1, row._2))
-      import geotrellis.layers.util.TaskUtils._
+      import geotrellis.layers.util.IOUtils._
       fs2.Stream eval IO.shift(ec) *> retryFunc.fold(writeTask)(writeTask.retryEBO(_))
     }
 

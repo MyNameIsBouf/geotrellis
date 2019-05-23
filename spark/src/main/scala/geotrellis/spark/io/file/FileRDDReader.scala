@@ -18,10 +18,10 @@ package geotrellis.spark.io.file
 
 import geotrellis.tiling.{Boundable, Bounds, KeyBounds}
 import geotrellis.spark._
-import geotrellis.layers.Njoiner
 import geotrellis.layers.avro.codecs.KeyValueRecordCodec
 import geotrellis.layers.index.{IndexRanges, MergeQueue}
 import geotrellis.layers.avro.{AvroEncoder, AvroRecordCodec}
+import geotrellis.layers.util.IOUtils
 import geotrellis.spark.util.KryoWrapper
 import geotrellis.util.Filesystem
 
@@ -62,7 +62,7 @@ object FileRDDReader {
     sc.parallelize(bins, bins.size)
       .mapPartitions { partition: Iterator[Seq[(BigInt, BigInt)]] =>
         partition flatMap { seq =>
-          Njoiner.njoin[K, V](seq.toIterator, threads) { index: BigInt =>
+          IOUtils.parJoin[K, V](seq.toIterator, threads) { index: BigInt =>
             val path = keyPath(index)
             if (new File(path).exists) {
               val bytes: Array[Byte] = Filesystem.slurp(path)

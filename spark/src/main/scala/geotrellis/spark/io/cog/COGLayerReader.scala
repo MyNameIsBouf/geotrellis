@@ -16,19 +16,19 @@
 
 package geotrellis.spark.io.cog
 
-import geotrellis.layers._
-import geotrellis.layers._
-import geotrellis.layers.cog._
-import geotrellis.spark._
+import geotrellis.tiling._
 import geotrellis.raster.{CellGrid, GridBounds, MultibandTile, RasterExtent, Tile}
 import geotrellis.raster.crop._
 import geotrellis.raster.io.geotiff._
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
 import geotrellis.raster.io.geotiff.reader.TiffTagsReader
-import geotrellis.tiling._
+import geotrellis.layers._
+import geotrellis.layers.cog._
+import geotrellis.layers.index.{Index, IndexRanges, KeyIndex, MergeQueue}
+import geotrellis.layers.util.IOUtils
+import geotrellis.spark._
 import geotrellis.spark.io._
 import geotrellis.spark.util.KryoWrapper
-import geotrellis.layers.index.{Index, IndexRanges, KeyIndex, MergeQueue}
 import geotrellis.util._
 
 
@@ -397,7 +397,7 @@ abstract class COGLayerReader[ID] extends Serializable {
         val keyFormat = kwFormat.value
 
         partition flatMap { seq =>
-          Njoiner.njoin[K, R](seq.toIterator, threads) { index: BigInt =>
+          IOUtils.parJoin[K, R](seq.toIterator, threads) { index: BigInt =>
             if (!pathExists(keyPath(index))) Vector()
             else {
               val uri = fullPath(keyPath(index))

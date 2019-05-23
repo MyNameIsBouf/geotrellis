@@ -22,6 +22,7 @@ import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.hadoop.conf.HadoopConfig
 import geotrellis.layers.hadoop.formats.FilterMapFileInputFormat
+import geotrellis.layers.util.IOUtils
 
 import com.github.blemale.scaffeine.{Cache, Scaffeine}
 
@@ -64,7 +65,7 @@ class HadoopCollectionReader(maxOpenFiles: Int) {
     val pathRanges: Vector[(Path, BigInt, BigInt)] =
       FilterMapFileInputFormat.layerRanges(path, conf)
 
-    Njoiner.njoin[K, V](indexRanges, threads){ index: BigInt =>
+    IOUtils.parJoin[K, V](indexRanges, threads){ index: BigInt =>
       val valueWritable = pathRanges
         .find(row => predicate(row, index))
         .map { case (p, _, _) =>

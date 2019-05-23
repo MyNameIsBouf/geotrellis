@@ -20,15 +20,16 @@ import java.net.URI
 import java.util.ServiceLoader
 
 import geotrellis.tiling._
-import geotrellis.layers._
-import geotrellis.layers._
-import geotrellis.layers.index.{Index, MergeQueue}
 import geotrellis.raster.io.geotiff.reader.{TiffTagsReader, _}
 import geotrellis.raster.{CellGrid, RasterExtent}
+import geotrellis.layers._
+import geotrellis.layers.index.{Index, MergeQueue}
+import geotrellis.layers.util.IOUtils
 import geotrellis.util._
 import spray.json._
 
 import scala.reflect._
+
 
 abstract class COGCollectionLayerReader[ID] { self =>
   val attributeStore: AttributeStore
@@ -214,7 +215,7 @@ object COGCollectionLayerReader {
     else
       baseQueryKeyBounds.flatMap(decomposeBounds)
 
-    Njoiner.njoin[K, V](ranges.toIterator, threads) { index: BigInt =>
+    IOUtils.parJoin[K, V](ranges.toIterator, threads) { index: BigInt =>
       if (!pathExists(keyPath(index))) Vector()
       else {
         val uri = fullPath(keyPath(index))

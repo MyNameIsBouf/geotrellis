@@ -3,11 +3,11 @@ package geotrellis.layers.file
 import java.io.File
 
 import geotrellis.tiling.{Boundable, KeyBounds, EmptyBounds}
-import geotrellis.layers.Njoiner
 import geotrellis.layers.avro.codecs.KeyValueRecordCodec
 import geotrellis.layers.avro.{AvroEncoder, AvroRecordCodec}
 import geotrellis.layers.file.conf.FileConfig
 import geotrellis.layers.index.MergeQueue
+import geotrellis.layers.util.IOUtils
 import geotrellis.util.Filesystem
 
 import org.apache.avro.Schema
@@ -34,7 +34,7 @@ object FileCollectionReader {
     val includeKey = (key: K) => KeyBounds.includeKey(queryKeyBounds, key)(boundable)
     val _recordCodec = KeyValueRecordCodec[K, V]
 
-    Njoiner.njoin[K, V](ranges.toIterator, threads) { index: BigInt =>
+    IOUtils.parJoin[K, V](ranges.toIterator, threads) { index: BigInt =>
       val path = keyPath(index)
       if (new File(path).exists) {
         val bytes: Array[Byte] = Filesystem.slurp(path)
