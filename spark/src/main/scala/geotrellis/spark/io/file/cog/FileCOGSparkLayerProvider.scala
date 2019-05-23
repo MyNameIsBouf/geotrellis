@@ -36,7 +36,7 @@ import java.io.File
  * The uri represents local path to catalog root.
  *  ex: `file:/tmp/catalog`
  */
-class FileCOGRDDLayerProvider extends COGLayerReaderProvider with COGLayerWriterProvider with COGCollectionLayerReaderProvider {
+class FileCOGSparkLayerProvider extends COGLayerReaderProvider with COGLayerWriterProvider with COGCollectionLayerReaderProvider {
 
   def canProcess(uri: URI): Boolean = uri.getScheme match {
     case str: String => if (str.toLowerCase == "file") true else false

@@ -48,7 +48,7 @@ class HadoopLayerProviderSpec extends FunSpec with TestEnvironment {
 
   it("should not be able to process a URI without a scheme") {
     val badURI = new java.net.URI("/tmp/catalog")
-    val provider = new HadoopRDDLayerProvider
+    val provider = new HadoopSparkLayerProvider
 
     provider.canProcess(badURI) should be (false)
   }

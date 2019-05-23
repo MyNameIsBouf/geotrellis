@@ -44,7 +44,7 @@ class COGHadoopLayerProviderSpec extends FunSpec with TestEnvironment {
 
   it("should not be able to process a URI without a scheme") {
     val badURI = new java.net.URI("/tmp/catalog")
-    val provider = new HadoopCOGRDDLayerProvider
+    val provider = new HadoopCOGSparkLayerProvider
 
     provider.canProcess(badURI) should be (false)
   }
