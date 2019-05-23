@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package geotrellis.layers.hadoop
+package geotrellis.spark.io.hadoop
 
+import geotrellis.layers.hadoop.HdfsUtils
+import geotrellis.spark.testkit._
 import geotrellis.util.Filesystem
 
 import java.io.IOException
@@ -24,7 +26,7 @@ import org.scalatest._
 import org.apache.hadoop.fs.Path
 
 
-class HdfsUtilsSpec extends FunSpec with Matchers {
+class HdfsUtilsSpec extends FunSpec with Matchers with TestEnvironment {
   describe("HdfsUtils") {
 
     def testArrays[T](arr1: Array[T], arr2: Array[T]): Array[(T, T)] = {
