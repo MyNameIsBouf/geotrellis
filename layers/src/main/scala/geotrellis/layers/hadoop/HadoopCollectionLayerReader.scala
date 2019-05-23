@@ -70,7 +70,7 @@ class HadoopCollectionLayerReader(
 
 object HadoopCollectionLayerReader {
   def apply(attributeStore: HadoopAttributeStore): HadoopCollectionLayerReader =
-    new HadoopCollectionLayerReader(attributeStore, attributeStore.hadoopConfiguration)
+    new HadoopCollectionLayerReader(attributeStore, attributeStore.conf)
 
   def apply(rootPath: Path, conf: Configuration): HadoopCollectionLayerReader =
     apply(HadoopAttributeStore(rootPath, conf))

@@ -48,7 +48,7 @@ class HadoopLayerCopier(
       case e: AttributeNotFoundError => throw new LayerReadError(from).initCause(e)
     }
     val newPath = new Path(rootPath,  s"${to.name}/${to.zoom}")
-    HdfsUtils.copyPath(new Path(header.path), newPath, attributeStore.conf.value)
+    HdfsUtils.copyPath(new Path(header.path), newPath, attributeStore.conf)
     attributeStore.writeLayerAttributes(
       to, header.copy(path = newPath.toUri), metadata, keyIndex, writerSchema
     )

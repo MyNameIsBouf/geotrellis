@@ -71,7 +71,7 @@ class HadoopCOGValueReader(
 
 object HadoopCOGValueReader {
   def apply(attributeStore: HadoopAttributeStore): HadoopCOGValueReader =
-    new HadoopCOGValueReader(attributeStore, attributeStore.hadoopConfiguration)
+    new HadoopCOGValueReader(attributeStore, attributeStore.conf)
 
   def apply(rootPath: Path, conf: Configuration): HadoopCOGValueReader =
     apply(HadoopAttributeStore(rootPath, conf))

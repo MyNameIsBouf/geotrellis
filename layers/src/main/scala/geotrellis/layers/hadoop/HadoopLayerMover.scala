@@ -42,7 +42,7 @@ class HadoopLayerMover(
     if (!attributeStore.layerExists(from)) throw new LayerNotFoundError(from)
     if (attributeStore.layerExists(to)) throw new LayerExistsError(to)
 
-    val hadoopConfiguration = attributeStore.conf.value
+    val conf = attributeStore.conf
 
     val LayerAttributes(header, metadata, keyIndex, writerSchema) = try {
       attributeStore.readLayerAttributes[HadoopLayerHeader, M, K](from)
@@ -51,8 +51,8 @@ class HadoopLayerMover(
     }
     val (newLayerRoot, newPath) = new Path(rootPath,  s"${to.name}") -> new Path(rootPath,  s"${to.name}/${to.zoom}")
     // new layer name root has to be created before layerId renaming
-    HdfsUtils.ensurePathExists(newLayerRoot, hadoopConfiguration)
-    HdfsUtils.renamePath(new Path(header.path), newPath, hadoopConfiguration)
+    HdfsUtils.ensurePathExists(newLayerRoot, conf)
+    HdfsUtils.renamePath(new Path(header.path), newPath, conf)
     attributeStore.writeLayerAttributes(
       to, header.copy(path = newPath.toUri), metadata, keyIndex, writerSchema
     )

@@ -86,7 +86,7 @@ class HadoopValueReader(
 
 object HadoopValueReader {
   def apply(attributeStore: HadoopAttributeStore): HadoopValueReader =
-    new HadoopValueReader(attributeStore, attributeStore.hadoopConfiguration)
+    new HadoopValueReader(attributeStore, attributeStore.conf)
 
   def apply(rootPath: Path, conf: Configuration): HadoopValueReader =
     apply(HadoopAttributeStore(rootPath, conf))

@@ -32,16 +32,17 @@ import java.io.PrintWriter
 
 class HadoopAttributeStore(
   val rootPathString: String,
-  val conf: SerializableConfiguration
+  val conf: Configuration
 ) extends BlobLayerAttributeStore {
   import HadoopAttributeStore._
 
+  private val serConf: SerializableConfiguration = SerializableConfiguration(conf)
+
   def rootPath = new Path(rootPathString)
-  def hadoopConfiguration = conf.value
 
   @transient lazy val fsAndPath = {
     val ap = new Path(rootPath, "_attributes")
-    val fs = ap.getFileSystem(hadoopConfiguration)
+    val fs = ap.getFileSystem(conf)
 
     // Create directory if it doesn't exist
     if(!fs.exists(ap)) fs.mkdirs(ap)
@@ -60,7 +61,7 @@ class HadoopAttributeStore(
 
   private def delete(layerId: LayerId, path: Path): Unit = {
     HdfsUtils
-      .listFiles(new Path(attributePath, path), hadoopConfiguration)
+      .listFiles(new Path(attributePath, path), conf)
       .foreach(fs.delete(_, false))
     clearCache(layerId)
   }
@@ -73,7 +74,7 @@ class HadoopAttributeStore(
 
   private def readFile[T: JsonFormat](path: Path): Option[(LayerId, T)] = {
     HdfsUtils
-      .getLineScanner(path, hadoopConfiguration)
+      .getLineScanner(path, conf)
       .map{ in =>
         val txt =
           try {
@@ -94,7 +95,7 @@ class HadoopAttributeStore(
 
   def readAll[T: JsonFormat](attributeName: String): Map[LayerId,T] = {
     HdfsUtils
-      .listFiles(attributeWildcard(attributeName), hadoopConfiguration)
+      .listFiles(attributeWildcard(attributeName), conf)
       .map{ path: Path =>
         readFile[T](path) match {
           case Some(tup) => tup
@@ -128,7 +129,7 @@ class HadoopAttributeStore(
     val metadataRelativePath =
       attributePath(layerId, AttributeStore.Fields.metadata).toUri.getPath
     HdfsUtils
-      .listFiles(new Path(attributePath, s"*.json"), hadoopConfiguration)
+      .listFiles(new Path(attributePath, s"*.json"), conf)
       .exists { _.toUri.getPath ==  metadataRelativePath }
   }
 
@@ -144,7 +145,7 @@ class HadoopAttributeStore(
 
   def layerIds: Seq[LayerId] =
     HdfsUtils
-      .listFiles(new Path(attributePath, s"*.json"), hadoopConfiguration)
+      .listFiles(new Path(attributePath, s"*.json"), conf)
       .map { path: Path =>
         val List(name, zoomStr) = path.getName.split(SEP).take(2).toList
         LayerId(name, zoomStr.toInt)
@@ -156,7 +157,7 @@ class HadoopAttributeStore(
       attributePath(layerId, AttributeStore.Fields.metadata).toUri.getPath.getParent()
 
     HdfsUtils
-      .listFiles(new Path(metadataRelativeParentPath, layerWildcard(layerId)), hadoopConfiguration)
+      .listFiles(new Path(metadataRelativeParentPath, layerWildcard(layerId)), conf)
       .map { path: Path =>
         val attributeRx(name, zoom, attribute) = path.getName
         attribute
@@ -174,5 +175,5 @@ object HadoopAttributeStore {
   }
 
   def apply(rootPath: Path, config: Configuration): HadoopAttributeStore =
-    new HadoopAttributeStore(rootPath.toUri.toString, SerializableConfiguration(config))
+    new HadoopAttributeStore(rootPath.toUri.toString, config)
 }

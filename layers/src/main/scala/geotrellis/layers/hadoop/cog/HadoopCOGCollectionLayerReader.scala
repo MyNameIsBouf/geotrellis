@@ -46,12 +46,13 @@ import java.net.URI
 class HadoopCOGCollectionLayerReader(
   val attributeStore: AttributeStore,
   val catalogPath: String,
-  val conf: SerializableConfiguration = SerializableConfiguration(new Configuration),
+  val conf: Configuration = new Configuration,
   val defaultThreads: Int = HadoopCOGCollectionLayerReader.defaultThreadCount
-)
-  extends COGCollectionLayerReader[LayerId] with LazyLogging {
+) extends COGCollectionLayerReader[LayerId] with LazyLogging {
 
-  implicit def getByteReader(uri: URI): ByteReader = byteReader(uri, conf.value)
+  val serConf: SerializableConfiguration = SerializableConfiguration(conf)
+
+  implicit def getByteReader(uri: URI): ByteReader = byteReader(uri, conf)
 
   def read[
     K: SpatialComponent: Boundable: JsonFormat: ClassTag,
@@ -67,7 +68,7 @@ class HadoopCOGCollectionLayerReader(
       id              = id,
       tileQuery       = tileQuery,
       getKeyPath      = getKeyPath,
-      pathExists      = { str => HdfsUtils.pathExists(new Path(str), conf.value) },
+      pathExists      = { str => HdfsUtils.pathExists(new Path(str), conf) },
       fullPath        = { path => new URI(path) },
       defaultThreads  = defaultThreads
     )

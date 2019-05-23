@@ -39,7 +39,7 @@ import scala.reflect.ClassTag
 class HadoopLayerManager(attributeStore: HadoopAttributeStore)(implicit sc: SparkContext)
     extends LayerManager[LayerId] {
   def delete(id: LayerId): Unit =
-    HadoopLayerDeleter(attributeStore).delete(id)
+    HadoopLayerDeleter(attributeStore, attributeStore.conf).delete(id)
 
   def copy[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
