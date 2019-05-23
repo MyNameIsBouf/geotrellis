@@ -1,2 +1,2 @@
-geotrellis.spark.io.file.FileRDDLayerProvider
-geotrellis.spark.io.hadoop.HadoopRDDLayerProvider
+geotrellis.spark.io.file.FileSparkLayerProvider
+geotrellis.spark.io.hadoop.HadoopSparkLayerProvider

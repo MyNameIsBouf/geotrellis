@@ -1,2 +1,2 @@
-geotrellis.spark.io.file.cog.FileCOGRDDLayerProvider
-geotrellis.spark.io.hadoop.cog.HadoopCOGRDDLayerProvider
+geotrellis.spark.io.file.cog.FileCOGSparkLayerProvider
+geotrellis.spark.io.hadoop.cog.HadoopCOGSparkLayerProvider
